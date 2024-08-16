@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+struct Book {
+    var id: Int
+    var title: String
+    
+    var authors: [String] //array of dictionaries
+    var authorsName: String
+    
+    var subjects: [String]
+    var downloadCount: Int
+}
+
 struct ContentView: View {
     var body: some View {
         VStack {
@@ -22,3 +33,6 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+
+

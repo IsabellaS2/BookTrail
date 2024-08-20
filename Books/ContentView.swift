@@ -7,24 +7,40 @@
 
 import SwiftUI
 
-struct Book {
-    var id: Int
-    var title: String
-    
-    var authors: [String] //array of dictionaries
-    var authorsName: String
-    
-    var subjects: [String]
-    var downloadCount: Int
-}
-
 struct ContentView: View {
+    
+    @ObservedObject var viewModel = ViewModel()
+    
     var body: some View {
         VStack {
-            Image(systemName: "book")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Books!")
+            Text("logoname")
+                .multilineTextAlignment(.leading)
+            
+            Spacer()
+            
+            Text("Find your favourite books here")
+                .font(.system(size: 45))
+                .multilineTextAlignment(.center)
+
+            Rectangle()
+                .padding(.bottom, 15.0)
+                .frame(width: 300.0, height: 40.0)
+            
+            Button("Go") {
+                viewModel.searchButtonFunctionality()
+            }
+            
+            Spacer()
+            
+            VStack(alignment: .leading) {
+                Text("Most Downloaded")
+                    .font(.system(size: 28))
+
+                Text("Romeo and Juliet")
+                    .font(.system(size: 18))
+            }
+            
+            Spacer()
         }
         .padding()
     }
@@ -33,6 +49,3 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-
-
-

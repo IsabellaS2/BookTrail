@@ -26,23 +26,32 @@ struct ContentView: View {
                 .padding(.bottom, 15.0)
                 .frame(width: 300.0, height: 40.0)
             
-            Button("Go") {
-                viewModel.searchButtonFunctionality()
-            }
             
+            Button {
+                viewModel.getMostDownloaded()
+            } label: {
+                Text("Go")
+            }
+
             Spacer()
             
             VStack(alignment: .leading) {
                 Text("Most Downloaded")
                     .font(.system(size: 28))
 
-                Text("Romeo and Juliet")
+                Text(viewModel.viewData?.mostDownloadedBook ?? "No Data")
+                    .font(.system(size: 18))
+                
+                Text(viewModel.viewData?.downloadTotal ?? "No Data")
                     .font(.system(size: 18))
             }
             
             Spacer()
         }
         .padding()
+        .onAppear {
+            viewModel.present()
+        }
     }
 }
 

@@ -7,26 +7,34 @@
 
 import SwiftUI
 
+struct HomeViewData {
+    let mostDownloadedBook: String
+    let downloadTotal: String
+}
+
 class ViewModel: ObservableObject {
     
-    struct Book {
-        var id: Int //accessing each book
-        var title: String //book title
-        var authors: [Author]
-        let bookshelves: [String] //bookshelves the books would be on, would be useful for searching/filtering
-        var subjects: [String] //similar to bookshelves but more and for every book
-        var downloadCount: Int
-    }
+    @Published var books: [Book] = []
+    @Published var viewData: HomeViewData?
     
-    //useful for searching e.g. books from certain author/time period
-    struct Author {
-        let name: String
-        let birthYear: Int
-        let deathYear: Int
+    
+    func present() {
+        books = [
+            .init(id: 1, title: "title 1", authors: [], bookshelves: [], subjects: [], downloadCount: 1),
+            .init(id: 2, title: "title 2", authors: [], bookshelves: [], subjects: [], downloadCount: 500),
+            .init(id: 3, title: "title 3", authors: [], bookshelves: [], subjects: [], downloadCount: 100),
+            .init(id: 4, title: "title 4", authors: [], bookshelves: [], subjects: [], downloadCount: 10),
+        ]
     }
     
     func searchButtonFunctionality() {
-        //
+    
+    }
+    
+    func getMostDownloaded() {
+        if let book = books.map({ ($0.downloadCount, $0.title) }).sorted(by: { $0.0 > $1.0 }).first {
+            self.viewData = HomeViewData(mostDownloadedBook: book.1, downloadTotal: "downloaded: \(book.0) times")
+        }
     }
 }
 

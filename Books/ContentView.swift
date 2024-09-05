@@ -21,14 +21,14 @@ struct ContentView: View {
             Text("Find your favourite books here")
                 .font(.system(size: 45))
                 .multilineTextAlignment(.center)
-
-            Rectangle()
-                .padding(.bottom, 15.0)
-                .frame(width: 300.0, height: 40.0)
+            
+            TextField("Enter a book", text: $viewModel.bookEntered)
+                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
             
             
             Button {
-                viewModel.getMostDownloaded()
+                viewModel.sortBooksAlphabetically()
+                
             } label: {
                 Text("Go")
             }
@@ -44,6 +44,12 @@ struct ContentView: View {
                 
                 Text(viewModel.viewData?.downloadTotal ?? "No Data")
                     .font(.system(size: 18))
+                
+//                if viewModel.status == true {
+//                    Text(viewModel.successMessage)
+//                } else {
+//                    Text(viewModel.failMessage)
+//                }
             }
             
             Spacer()

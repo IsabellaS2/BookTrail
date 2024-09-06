@@ -13,6 +13,7 @@
 		EE0345CA2C6F9A63008B446B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE0345C92C6F9A63008B446B /* Preview Assets.xcassets */; };
 		EE0A27BE2C7790A7005D547D /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0A27BD2C7790A7005D547D /* Book.swift */; };
 		EE8FD1932C74B0E1003FD4D6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */; };
+		EEE099882C89DEF9001B6209 /* InknutAntiqua-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEE099872C89DEF9001B6209 /* InknutAntiqua-Light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,8 @@
 		EE0345C92C6F9A63008B446B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EE0A27BD2C7790A7005D547D /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		EEE099862C89DED8001B6209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EEE099872C89DEF9001B6209 /* InknutAntiqua-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "InknutAntiqua-Light.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +42,7 @@
 		EE0345B62C6F9A61008B446B = {
 			isa = PBXGroup;
 			children = (
+				EEE099872C89DEF9001B6209 /* InknutAntiqua-Light.ttf */,
 				EE0345C12C6F9A61008B446B /* Books */,
 				EE0345C02C6F9A61008B446B /* Products */,
 			);
@@ -55,6 +59,7 @@
 		EE0345C12C6F9A61008B446B /* Books */ = {
 			isa = PBXGroup;
 			children = (
+				EEE099862C89DED8001B6209 /* Info.plist */,
 				EE0345C22C6F9A61008B446B /* BooksApp.swift */,
 				EE0345C42C6F9A61008B446B /* ContentView.swift */,
 				EE0A27BD2C7790A7005D547D /* Book.swift */,
@@ -131,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEE099882C89DEF9001B6209 /* InknutAntiqua-Light.ttf in Resources */,
 				EE0345CA2C6F9A63008B446B /* Preview Assets.xcassets in Resources */,
 				EE0345C72C6F9A63008B446B /* Assets.xcassets in Resources */,
 			);
@@ -282,6 +288,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Books/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Books/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -310,6 +317,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Books/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Books/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

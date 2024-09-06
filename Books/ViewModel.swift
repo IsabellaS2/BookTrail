@@ -18,11 +18,11 @@ class ViewModel: ObservableObject {
     @Published var viewData: HomeViewData?
     @Published var bookEntered: String = ""
     
-    @Published var status: Bool = false
-
-    @Published var successMessage: String = "We have your book, yay!"
-    @Published var failMessage: String = "Sorry, we do not have your book :("
-
+    @Published var message: String = ""
+    
+    
+    
+    
     
     func present() {
         books = [
@@ -35,17 +35,16 @@ class ViewModel: ObservableObject {
     
     
     
-
+    
     
     func searchButtonFunctionality() {
         let bookTitles = books.map({ ($0.title) })
         
         if bookTitles.contains(bookEntered) {
-            status = true
-            print("We have your book, yay!")
+            message = "We have your book, yay!"
         } else {
-            status = false
-            print("Sorry, we do not have your book!")
+            message = "Sorry, we do not have your book!"
+            
         }
     }
     
@@ -53,16 +52,16 @@ class ViewModel: ObservableObject {
         let bookTitles = books.map({ $0.title })
         let sortedTitles = bookTitles.sorted(by: { $0.lowercased() < $1.lowercased() })
         
-        //Prints all the titles sorted
+        //        Prints all the titles sorted
         for title in sortedTitles {
             print(title)
         }
         
         //Prints just the first item
         print(sortedTitles[0])
-
+        
     }
-
+    
     
     func getMostDownloaded() {
         if let book = books.map({ ($0.downloadCount, $0.title) }).sorted(by: { $0.0 > $1.0 }).first {

@@ -13,48 +13,71 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Text("logoname")
+            Image(systemName: "book")
+                .resizable()
+                .frame(width: 67, height: 50)
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .foregroundColor(Color("brownbrown"))
+            
+            
+            Text("Booktrail")
+                .font(Font.custom("Inknut Antiqua", size: 32))
                 .multilineTextAlignment(.leading)
+                .foregroundColor(Color("darkestBrown"))
+            
             
             Spacer()
             
             Text("Find your favourite books here")
-                .font(.system(size: 45))
+                .font(Font.custom("Cochin", size: 40))
+                .foregroundColor(Color("darkestBrown"))
                 .multilineTextAlignment(.center)
             
-            TextField("Enter a book", text: $viewModel.bookEntered)
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+            TextField("Search...", text: $viewModel.bookEntered)
+                .foregroundColor(/*@START_MENU_TOKEN@*/Color("brownbrown")/*@END_MENU_TOKEN@*/)
+                .background(Color("caramel"))
+
             
             
             Button {
-                viewModel.sortBooksAlphabetically()
+                viewModel.searchButtonFunctionality()
                 
             } label: {
                 Text("Go")
             }
-
+            //display sorted list of books to screen
+            
             Spacer()
             
-            VStack(alignment: .leading) {
-                Text("Most Downloaded")
-                    .font(.system(size: 28))
+            Text("Most Downloaded")
+                .font(Font.custom("Cochin", size: 24))
+                .foregroundColor(Color("darkestBrown"))
 
+            
+            Text(viewModel.message)
+            
+            HStack() {
+                
+                
                 Text(viewModel.viewData?.mostDownloadedBook ?? "No Data")
                     .font(.system(size: 18))
                 
                 Text(viewModel.viewData?.downloadTotal ?? "No Data")
                     .font(.system(size: 18))
                 
-//                if viewModel.status == true {
-//                    Text(viewModel.successMessage)
-//                } else {
-//                    Text(viewModel.failMessage)
-//                }
+                
+                
+                //                if viewModel.status == true {
+                //                    Text(viewModel.successMessage)
+                //                } else {
+                //                    Text(viewModel.failMessage)
+                //                }
             }
             
             Spacer()
         }
         .padding()
+        .background(Color("background"))
         .onAppear {
             viewModel.present()
         }

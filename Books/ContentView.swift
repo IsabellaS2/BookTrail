@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @ObservedObject var viewModel = ViewModel()
     
     var body: some View {
@@ -16,70 +15,53 @@ struct ContentView: View {
             Image(systemName: "book")
                 .resizable()
                 .frame(width: 67, height: 50)
-                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .foregroundColor(Color("brownbrown"))
-            
             
             Text("Booktrail")
                 .font(Font.custom("Inknut Antiqua", size: 32))
-                .multilineTextAlignment(.leading)
                 .foregroundColor(Color("darkestBrown"))
             
-            
             Spacer()
+            
             
             Text("Find your favourite books here")
                 .font(Font.custom("Cochin", size: 40))
                 .foregroundColor(Color("darkestBrown"))
-                .multilineTextAlignment(.center)
+            
             
             TextField("Search...", text: $viewModel.bookEntered)
-                .foregroundColor(/*@START_MENU_TOKEN@*/Color("brownbrown")/*@END_MENU_TOKEN@*/)
-                .background(Color("caramel"))
-
+                .padding(10.0)
+                .frame(height: 40.0)
+                .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("caramel")/*@END_MENU_TOKEN@*/)
             
-            
-            Button {
+            Button(action: {
                 viewModel.searchButtonFunctionality()
-                
-            } label: {
+            }) {
                 Text("Go")
+                    .font(Font.custom("Cochin", size: 24))
+                    .foregroundColor(Color("darkestBrown"))
             }
-            //display sorted list of books to screen
             
             Spacer()
             
             Text("Most Downloaded")
                 .font(Font.custom("Cochin", size: 24))
                 .foregroundColor(Color("darkestBrown"))
-
             
-            Text(viewModel.message)
+            Text(viewModel.mostDownloadedBookText)
+                .font(Font.custom("Cochin", size: 20))
+                .foregroundColor(Color("darkestBrown"))
             
-            HStack() {
-                
-                
-                Text(viewModel.viewData?.mostDownloadedBook ?? "No Data")
-                    .font(.system(size: 18))
-                
-                Text(viewModel.viewData?.downloadTotal ?? "No Data")
-                    .font(.system(size: 18))
-                
-                
-                
-                //                if viewModel.status == true {
-                //                    Text(viewModel.successMessage)
-                //                } else {
-                //                    Text(viewModel.failMessage)
-                //                }
-            }
+            Text(viewModel.downloadTotalText)
+                .font(Font.custom("Cochin", size: 20))
+                .foregroundColor(Color("darkestBrown"))
             
             Spacer()
         }
         .padding()
         .background(Color("background"))
-        .onAppear {
-            viewModel.present()
+        .task {
+            await viewModel.fetchBookRepo()
         }
     }
 }

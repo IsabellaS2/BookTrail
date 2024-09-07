@@ -11,8 +11,9 @@
 		EE0345C52C6F9A61008B446B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0345C42C6F9A61008B446B /* ContentView.swift */; };
 		EE0345C72C6F9A63008B446B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE0345C62C6F9A63008B446B /* Assets.xcassets */; };
 		EE0345CA2C6F9A63008B446B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE0345C92C6F9A63008B446B /* Preview Assets.xcassets */; };
-		EE0A27BE2C7790A7005D547D /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0A27BD2C7790A7005D547D /* Book.swift */; };
+		EE0A27BE2C7790A7005D547D /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0A27BD2C7790A7005D547D /* BookModel.swift */; };
 		EE8FD1932C74B0E1003FD4D6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */; };
+		EEC9DE0F2C8B275700A289B3 /* BookRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9DE0E2C8B275700A289B3 /* BookRepository.swift */; };
 		EEE099882C89DEF9001B6209 /* InknutAntiqua-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEE099872C89DEF9001B6209 /* InknutAntiqua-Light.ttf */; };
 /* End PBXBuildFile section */
 
@@ -22,8 +23,9 @@
 		EE0345C42C6F9A61008B446B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EE0345C62C6F9A63008B446B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE0345C92C6F9A63008B446B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		EE0A27BD2C7790A7005D547D /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		EE0A27BD2C7790A7005D547D /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		EEC9DE0E2C8B275700A289B3 /* BookRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepository.swift; sourceTree = "<group>"; };
 		EEE099862C89DED8001B6209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EEE099872C89DEF9001B6209 /* InknutAntiqua-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "InknutAntiqua-Light.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,7 +64,8 @@
 				EEE099862C89DED8001B6209 /* Info.plist */,
 				EE0345C22C6F9A61008B446B /* BooksApp.swift */,
 				EE0345C42C6F9A61008B446B /* ContentView.swift */,
-				EE0A27BD2C7790A7005D547D /* Book.swift */,
+				EE0A27BD2C7790A7005D547D /* BookModel.swift */,
+				EEC9DE0E2C8B275700A289B3 /* BookRepository.swift */,
 				EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */,
 				EE0345C62C6F9A63008B446B /* Assets.xcassets */,
 				EE0345C82C6F9A63008B446B /* Preview Content */,
@@ -151,8 +154,9 @@
 			files = (
 				EE0345C52C6F9A61008B446B /* ContentView.swift in Sources */,
 				EE8FD1932C74B0E1003FD4D6 /* ViewModel.swift in Sources */,
+				EEC9DE0F2C8B275700A289B3 /* BookRepository.swift in Sources */,
 				EE0345C32C6F9A61008B446B /* BooksApp.swift in Sources */,
-				EE0A27BE2C7790A7005D547D /* Book.swift in Sources */,
+				EE0A27BE2C7790A7005D547D /* BookModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

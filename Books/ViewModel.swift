@@ -5,6 +5,7 @@
 //  Created by Isabella Sulisufi on 20/08/2024.
 //
 
+import Foundation
 import SwiftUI
 
 struct HomeViewData {
@@ -13,59 +14,64 @@ struct HomeViewData {
 }
 
 class ViewModel: ObservableObject {
-    
     @Published var books: [Book] = []
     @Published var viewData: HomeViewData?
     @Published var bookEntered: String = ""
-    
     @Published var message: String = ""
     
+    private let repository = BookRepository()
     
-    
-    
-    
-    func present() {
-        books = [
-            .init(id: 1, title: "Title 1", authors: [], bookshelves: [], subjects: [], downloadCount: 1),
-            .init(id: 2, title: "apples title 2", authors: [], bookshelves: [], subjects: [], downloadCount: 500),
-            .init(id: 3, title: "xcode title 3", authors: [], bookshelves: [], subjects: [], downloadCount: 100),
-            .init(id: 4, title: "title 4", authors: [], bookshelves: [], subjects: [], downloadCount: 10),
-        ]
+    var mostDownloadedBookText: String {
+        viewData?.mostDownloadedBook ?? "No Data"
+    }
+
+    var downloadTotalText: String {
+        viewData?.downloadTotal ?? "No Data"
     }
     
+    // Fetch books using the repository
+    func fetchBookRepo() async {
+        do {
+            books = try await repository.fetchBookRepo()
+            getMostDownloaded()
+        } catch NetworkError.invalidURL {
+            message = "Invalid URL"
+        } catch NetworkError.invalidResponse {
+            message = "Invalid response"
+        } catch NetworkError.invalidData {
+            message = "Invalid data"
+        } catch {
+            message = "Unexpected error: \(error)"
+        }
+    }
     
-    
-    
-    
+    // Handle search button functionality
     func searchButtonFunctionality() {
-        let bookTitles = books.map({ ($0.title) })
+        let bookTitles = books.map { $0.title }
         
         if bookTitles.contains(bookEntered) {
             message = "We have your book, yay!"
         } else {
             message = "Sorry, we do not have your book!"
-            
         }
     }
     
+    // Sort books alphabetically
     func sortBooksAlphabetically() {
-        let bookTitles = books.map({ $0.title })
-        let sortedTitles = bookTitles.sorted(by: { $0.lowercased() < $1.lowercased() })
+        let bookTitles = books.map { $0.title }
+        let sortedTitles = bookTitles.sorted { $0.lowercased() < $1.lowercased() }
         
-        //        Prints all the titles sorted
-        for title in sortedTitles {
-            print(title)
-        }
+        // Prints all the titles sorted
+        sortedTitles.forEach { print($0) }
         
         //Prints just the first item
         print(sortedTitles[0])
-        
     }
     
-    
+    // Get the most downloaded book
     func getMostDownloaded() {
-        if let book = books.map({ ($0.downloadCount, $0.title) }).sorted(by: { $0.0 > $1.0 }).first {
-            self.viewData = HomeViewData(mostDownloadedBook: book.1, downloadTotal: "downloaded: \(book.0) times")
+        if let book = books.max(by: { $0.downloadCount < $1.downloadCount }) {
+            viewData = HomeViewData(mostDownloadedBook: book.title, downloadTotal: "Downloaded: \(book.downloadCount) times")
         }
     }
 }

@@ -61,6 +61,7 @@
 		EE0345C12C6F9A61008B446B /* Books */ = {
 			isa = PBXGroup;
 			children = (
+				EEA55DB82C9C485F00781808 /* View */,
 				EEE099862C89DED8001B6209 /* Info.plist */,
 				EE0345C22C6F9A61008B446B /* BooksApp.swift */,
 				EE0345C42C6F9A61008B446B /* ContentView.swift */,
@@ -79,6 +80,13 @@
 				EE0345C92C6F9A63008B446B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		EEA55DB82C9C485F00781808 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

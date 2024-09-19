@@ -19,8 +19,10 @@ class ViewModel: ObservableObject {
     @Published var bookEntered: String = ""
     @Published var message: String = ""
     
-    private let repository = BookRepository()
+    private let networkRepository = BookRepository()
     
+    
+    //What is shown on the view screen
     var mostDownloadedBookText: String {
         viewData?.mostDownloadedBook ?? "No Data"
     }
@@ -29,17 +31,19 @@ class ViewModel: ObservableObject {
         viewData?.downloadTotal ?? "No Data"
     }
     
+    //CODE WORKING OUTS
+    
     // Fetch books using the repository
     func fetchBookRepo() async {
         do {
-            books = try await repository.fetchBookRepo()
+            books = try await networkRepository.fetchBookRepo()
             getMostDownloaded()
         } catch NetworkError.invalidURL {
             message = "Invalid URL"
         } catch NetworkError.invalidResponse {
             message = "Invalid response"
-        } catch NetworkError.invalidData {
-            message = "Invalid data"
+        } catch NetworkError.decodingError {
+            message = "Decoding Error"
         } catch {
             message = "Unexpected error: \(error)"
         }

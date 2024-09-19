@@ -10,7 +10,6 @@ import Foundation
 enum NetworkError: Error {
     case invalidURL
     case invalidResponse
-    case invalidData
     case decodingError
 }
 
@@ -35,7 +34,7 @@ class BookRepository {
             return booksResponse.results
             
         } catch {
-            throw NetworkError.invalidData
+            throw NetworkError.decodingError
         }
     }
 }

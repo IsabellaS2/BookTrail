@@ -44,17 +44,58 @@ struct ContentView: View {
             
             Spacer()
             
-            Text("Most Downloaded")
-                .font(Font.custom("Cochin", size: 24))
-                .foregroundColor(Color("darkestBrown"))
+            VStack {
+                Text("Most Downloaded")
+                    .font(Font.custom("Cochin", size: 24))
+                    .foregroundColor(Color("darkestBrown"))
+                
+                HStack {
+                    
+                    VStack {
+                        Rectangle()
+                            .frame(width: 96.0, height: 114.0)
+                            .background(Color("caramel"))
+                        
+                        Text(viewModel.mostDownloadedBookText)
+                            .font(Font.custom("Cochin", size: 20))
+                            .foregroundColor(Color("darkestBrown"))
+                            .lineLimit(2)
+                    }
+                    VStack {
+                        Rectangle()
+                            .frame(width: 96.0, height: 114.0)
+                            .background(Color("caramel"))
+                        
+                        Text(viewModel.mostDownloadedBookText)
+                            .font(Font.custom("Cochin", size: 20))
+                            .foregroundColor(Color("darkestBrown"))
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(2)
+                    }
+                    VStack {
+                        Rectangle()
+                            .frame(width: 96.0, height: 114.0)
+                            .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("darkestBrown")/*@END_MENU_TOKEN@*/)
+                        
+                        Text(viewModel.mostDownloadedBookText)
+                            .font(Font.custom("Cochin", size: 20))
+                            .foregroundColor(Color("darkestBrown"))
+                            .lineLimit(2)
+                    }
+                    Spacer()
+                }
+                
+            }
             
-            Text(viewModel.mostDownloadedBookText)
-                .font(Font.custom("Cochin", size: 20))
-                .foregroundColor(Color("darkestBrown"))
             
-            Text(viewModel.downloadTotalText)
-                .font(Font.custom("Cochin", size: 20))
-                .foregroundColor(Color("darkestBrown"))
+            
+            //            Text(viewModel.mostDownloadedBookText)
+            //                .font(Font.custom("Cochin", size: 20))
+            //                .foregroundColor(Color("darkestBrown"))
+            //
+            //            Text(viewModel.downloadTotalText)
+            //                .font(Font.custom("Cochin", size: 20))
+            //                .foregroundColor(Color("darkestBrown"))
             
             Spacer()
         }

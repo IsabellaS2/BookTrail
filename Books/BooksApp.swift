@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct BooksApp: App {
+    @ObservedObject var router = Router()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack(path: $router.navPath) {
+                ContentView()
+                    .navigationDestination(for: Router.Destination.self) { destination in
+                        switch destination {
+                        case .searchedPage:
+                            SearchPageView()
+                        }
+                    }
+                    .environmentObject(router)
+            }
         }
     }
 }

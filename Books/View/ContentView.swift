@@ -35,12 +35,15 @@ struct ContentView: View {
                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("caramel")/*@END_MENU_TOKEN@*/)
             
             Button(action: {
-                viewModel.searchButtonFunctionality()
+                viewModel.navigateToSearch()
             }) {
                 Text("Go")
                     .font(Font.custom("Cochin", size: 24))
                     .foregroundColor(Color("darkestBrown"))
             }
+            
+            
+            
             
             Spacer()
             
@@ -54,7 +57,7 @@ struct ContentView: View {
                     VStack {
                         Rectangle()
                             .frame(width: 96.0, height: 114.0)
-                            .background(Color("caramel"))
+                            .foregroundColor(Color("caramel"))
                         
                         Text(viewModel.mostDownloadedBookText)
                             .font(Font.custom("Cochin", size: 20))
@@ -64,7 +67,7 @@ struct ContentView: View {
                     VStack {
                         Rectangle()
                             .frame(width: 96.0, height: 114.0)
-                            .background(Color("caramel"))
+                            .foregroundColor(Color("caramel"))
                         
                         Text(viewModel.mostDownloadedBookText)
                             .font(Font.custom("Cochin", size: 20))
@@ -75,7 +78,7 @@ struct ContentView: View {
                     VStack {
                         Rectangle()
                             .frame(width: 96.0, height: 114.0)
-                            .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("darkestBrown")/*@END_MENU_TOKEN@*/)
+                            .foregroundColor(Color("caramel"))
                         
                         Text(viewModel.mostDownloadedBookText)
                             .font(Font.custom("Cochin", size: 20))
@@ -109,4 +112,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(Router())
 }

@@ -19,8 +19,14 @@ class ViewModel: ObservableObject {
     @Published var bookEntered: String = ""
     @Published var message: String = ""
     
+    @EnvironmentObject var router: Router
+
+    
     private let networkRepository = BookRepository()
     
+    func navigateToSearch() {
+        router.navigate(to: .searchedPage)
+    }
     
     //What is shown on the view screen
     var mostDownloadedBookText: String {

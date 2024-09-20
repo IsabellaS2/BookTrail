@@ -14,6 +14,8 @@
 		EE0A27BE2C7790A7005D547D /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0A27BD2C7790A7005D547D /* BookModel.swift */; };
 		EE8FD1932C74B0E1003FD4D6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */; };
 		EEC9DE0F2C8B275700A289B3 /* BookRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9DE0E2C8B275700A289B3 /* BookRepository.swift */; };
+		EED813732C9D953700FBB655 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED813722C9D953700FBB655 /* Router.swift */; };
+		EED813752C9D95A500FBB655 /* SearchPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED813742C9D95A500FBB655 /* SearchPageView.swift */; };
 		EEE099882C89DEF9001B6209 /* InknutAntiqua-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEE099872C89DEF9001B6209 /* InknutAntiqua-Light.ttf */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +28,8 @@
 		EE0A27BD2C7790A7005D547D /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		EEC9DE0E2C8B275700A289B3 /* BookRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepository.swift; sourceTree = "<group>"; };
+		EED813722C9D953700FBB655 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		EED813742C9D95A500FBB655 /* SearchPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageView.swift; sourceTree = "<group>"; };
 		EEE099862C89DED8001B6209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EEE099872C89DEF9001B6209 /* InknutAntiqua-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "InknutAntiqua-Light.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,12 +68,12 @@
 				EEA55DB82C9C485F00781808 /* View */,
 				EEE099862C89DED8001B6209 /* Info.plist */,
 				EE0345C22C6F9A61008B446B /* BooksApp.swift */,
-				EE0345C42C6F9A61008B446B /* ContentView.swift */,
 				EE0A27BD2C7790A7005D547D /* BookModel.swift */,
 				EEC9DE0E2C8B275700A289B3 /* BookRepository.swift */,
 				EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */,
 				EE0345C62C6F9A63008B446B /* Assets.xcassets */,
 				EE0345C82C6F9A63008B446B /* Preview Content */,
+				EED813722C9D953700FBB655 /* Router.swift */,
 			);
 			path = Books;
 			sourceTree = "<group>";
@@ -85,6 +89,8 @@
 		EEA55DB82C9C485F00781808 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EE0345C42C6F9A61008B446B /* ContentView.swift */,
+				EED813742C9D95A500FBB655 /* SearchPageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -164,6 +170,8 @@
 				EE8FD1932C74B0E1003FD4D6 /* ViewModel.swift in Sources */,
 				EEC9DE0F2C8B275700A289B3 /* BookRepository.swift in Sources */,
 				EE0345C32C6F9A61008B446B /* BooksApp.swift in Sources */,
+				EED813732C9D953700FBB655 /* Router.swift in Sources */,
+				EED813752C9D95A500FBB655 /* SearchPageView.swift in Sources */,
 				EE0A27BE2C7790A7005D547D /* BookModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

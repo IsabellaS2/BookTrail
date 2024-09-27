@@ -19,13 +19,15 @@ class ViewModel: ObservableObject {
     @Published var bookEntered: String = ""
     @Published var message: String = ""
     
+    @Published var emptysearch: String = ""
+    
     @EnvironmentObject var router: Router
 
     
     private let networkRepository = BookRepository()
     
     func navigateToSearch() {
-        router.navigate(to: .searchedPage)
+        router.navigate(to: .searchedPage(bookEntered))
     }
     
     //What is shown on the view screen
@@ -58,6 +60,9 @@ class ViewModel: ObservableObject {
     // Handle search button functionality
     func searchButtonFunctionality() {
         let bookTitles = books.map { $0.title }
+        
+        let searchedBooks = books.filter { $0.title.contains(bookEntered) }
+        print(searchedBooks.map{ $0.title })
         
         if bookTitles.contains(bookEntered) {
             message = "We have your book, yay!"

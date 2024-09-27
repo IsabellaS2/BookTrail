@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel = ViewModel()
+    @ObservedObject var viewModel: ViewModel
+    @EnvironmentObject var router: Router
+
     
     var body: some View {
         VStack {
@@ -23,7 +25,7 @@ struct ContentView: View {
             
             Spacer()
             
-            
+            //Search Section
             Text("Find your favourite books here")
                 .font(Font.custom("Cochin", size: 40))
                 .foregroundColor(Color("darkestBrown"))
@@ -33,9 +35,13 @@ struct ContentView: View {
                 .padding(10.0)
                 .frame(height: 40.0)
                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("caramel")/*@END_MENU_TOKEN@*/)
+                .onSubmit {
+                }
             
             Button(action: {
-                viewModel.navigateToSearch()
+                viewModel.getBooksOrderedByDownloads()
+                router.navigate(to: .searchedPage("123"))
+
             }) {
                 Text("Go")
                     .font(Font.custom("Cochin", size: 24))
@@ -47,48 +53,35 @@ struct ContentView: View {
             
             Spacer()
             
-            VStack {
+            //Most downloaded
+            VStack(alignment: .leading) {
                 Text("Most Downloaded")
                     .font(Font.custom("Cochin", size: 24))
                     .foregroundColor(Color("darkestBrown"))
+                    .multilineTextAlignment(.leading)
                 
-                HStack {
+                ScrollView(.horizontal) {
                     
-                    VStack {
-                        Rectangle()
-                            .frame(width: 96.0, height: 114.0)
-                            .foregroundColor(Color("caramel"))
-                        
-                        Text(viewModel.mostDownloadedBookText)
-                            .font(Font.custom("Cochin", size: 20))
-                            .foregroundColor(Color("darkestBrown"))
-                            .lineLimit(2)
+                    HStack {
+                        ForEach(0..<3) { _ in
+                            VStack {
+                                Rectangle()
+                                    .frame(width: 96.0, height: 114.0)
+                                    .foregroundColor(Color("caramel"))
+                                
+                                Text(viewModel.mostDownloadedBookText)
+                                    .font(Font.custom("Cochin", size: 20))
+                                    .foregroundColor(Color("darkestBrown"))
+                                    .multilineTextAlignment(.center)
+                                    .lineLimit(2)
+                            }
+                            .padding(.trailing, 10.0)
+                        }
+                        Spacer()
                     }
-                    VStack {
-                        Rectangle()
-                            .frame(width: 96.0, height: 114.0)
-                            .foregroundColor(Color("caramel"))
-                        
-                        Text(viewModel.mostDownloadedBookText)
-                            .font(Font.custom("Cochin", size: 20))
-                            .foregroundColor(Color("darkestBrown"))
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(2)
-                    }
-                    VStack {
-                        Rectangle()
-                            .frame(width: 96.0, height: 114.0)
-                            .foregroundColor(Color("caramel"))
-                        
-                        Text(viewModel.mostDownloadedBookText)
-                            .font(Font.custom("Cochin", size: 20))
-                            .foregroundColor(Color("darkestBrown"))
-                            .lineLimit(2)
-                    }
-                    Spacer()
                 }
-                
             }
+            
             
             
             
@@ -111,6 +104,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: ViewModel())
         .environmentObject(Router())
 }

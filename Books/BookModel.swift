@@ -13,7 +13,7 @@ struct BooksResponse: Codable {
 }
 
 // Struct representing each book in the results array
-struct Book: Codable {
+struct Book: Codable, Identifiable {
     var id: Int                      // Unique identifier for each book
     var title: String                // Title of the book
     var authors: [Author]            // List of authors associated with the book

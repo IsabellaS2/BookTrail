@@ -39,7 +39,7 @@ struct ContentView: View {
                 }
             
             Button(action: {
-                viewModel.getBooksOrderedByDownloads()
+//                viewModel.getBooksOrderedByDownloads
                 router.navigate(to: .searchedPage("123"))
 
             }) {
@@ -55,44 +55,31 @@ struct ContentView: View {
             
             //Most downloaded
             VStack(alignment: .leading) {
-                Text("Most Downloaded")
-                    .font(Font.custom("Cochin", size: 24))
-                    .foregroundColor(Color("darkestBrown"))
-                    .multilineTextAlignment(.leading)
-                
-                ScrollView(.horizontal) {
-                    
-                    HStack {
-                        ForEach(0..<3) { _ in
-                            VStack {
-                                Rectangle()
-                                    .frame(width: 96.0, height: 114.0)
-                                    .foregroundColor(Color("caramel"))
-                                
-                                Text(viewModel.mostDownloadedBookText)
-                                    .font(Font.custom("Cochin", size: 20))
-                                    .foregroundColor(Color("darkestBrown"))
-                                    .multilineTextAlignment(.center)
-                                    .lineLimit(2)
-                            }
-                            .padding(.trailing, 10.0)
-                        }
-                        Spacer()
-                    }
-                }
-            }
-            
-            
-            
-            
-            //            Text(viewModel.mostDownloadedBookText)
-            //                .font(Font.custom("Cochin", size: 20))
-            //                .foregroundColor(Color("darkestBrown"))
-            //
-            //            Text(viewModel.downloadTotalText)
-            //                .font(Font.custom("Cochin", size: 20))
-            //                .foregroundColor(Color("darkestBrown"))
-            
+                  Text("Most Downloaded")
+                      .font(Font.custom("Cochin", size: 24))
+                      .foregroundColor(Color("darkestBrown"))
+                      .multilineTextAlignment(.leading)
+                  
+                  ScrollView(.horizontal) {
+                      HStack {
+                          ForEach(viewModel.getBooksOrderedByDownloads().prefix(5)) { book in
+                              VStack {
+                                  Rectangle()
+                                      .frame(width: 96.0, height: 114.0)
+                                      .foregroundColor(Color("caramel"))
+                                  
+                                  Text(book.title)
+                                      .font(Font.custom("Cochin", size: 20))
+                                      .foregroundColor(Color("darkestBrown"))
+                                      .multilineTextAlignment(.center)
+                                      .lineLimit(2)
+                              }
+                              .padding(.trailing, 10.0)
+                          }
+                          Spacer()
+                      }
+                  }
+              }
             Spacer()
         }
         .padding()

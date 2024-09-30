@@ -31,7 +31,7 @@ struct SearchPageView: View {
                 
                 
                 //Searched box
-                TextField("Search...", text: $viewModel.emptysearch)
+                TextField("Search...", text: $viewModel.emptySearch)
                     .padding(12.0)
                     .frame(width: 360.0, height: 40.0)
                     .font(Font.custom("Cochin", size: 24))

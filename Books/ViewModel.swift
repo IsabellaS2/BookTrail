@@ -18,34 +18,19 @@ class ViewModel: ObservableObject {
     @Published var viewData: HomeViewData?
     @Published var bookEntered: String = ""
     @Published var message: String = ""
-    
-    @Published var emptysearch: String = ""
+    @Published var emptySearch: String = ""
     
     @EnvironmentObject var router: Router
-
     
     private let networkRepository = BookRepository()
-    
-    func navigateToSearch() {
-        router.navigate(to: .searchedPage(bookEntered))
-    }
-    
-    //What is shown on the view screen
-    var mostDownloadedBookText: String {
-        viewData?.mostDownloadedBook ?? "No Data"
-    }
 
-    var downloadTotalText: String {
-        viewData?.downloadTotal ?? "No Data"
-    }
+    // MARK: - Fetch Books from Repository
     
-    //CODE WORKING OUTS
-    
-    // Fetch books using the repository
+    /// Fetches books from the repository asynchronously
     func fetchBookRepo() async {
         do {
+            // Fetch books from the repository
             books = try await networkRepository.fetchBookRepo()
-            getMostDownloaded()
         } catch NetworkError.invalidURL {
             message = "Invalid URL"
         } catch NetworkError.invalidResponse {
@@ -56,37 +41,59 @@ class ViewModel: ObservableObject {
             message = "Unexpected error: \(error)"
         }
     }
+
+    // MARK: - Search Functionality
     
-    // Handle search button functionality
+    /// Handles search functionality when user enters a book title  (Not currently used in the UI)
     func searchButtonFunctionality() {
         let bookTitles = books.map { $0.title }
-        
         let searchedBooks = books.filter { $0.title.contains(bookEntered) }
-        print(searchedBooks.map{ $0.title })
         
         if bookTitles.contains(bookEntered) {
             message = "We have your book, yay!"
         } else {
             message = "Sorry, we do not have your book!"
         }
+        
+        print(searchedBooks.map { $0.title }) // For debugging purposes
     }
+
+    // MARK: - Sorting Functions
     
-    // Sort books alphabetically
+    /// Sorts books alphabetically (optional, not currently used in the UI)
     func sortBooksAlphabetically() {
-        let bookTitles = books.map { $0.title }
-        let sortedTitles = bookTitles.sorted { $0.lowercased() < $1.lowercased() }
+        let sortedTitles = books.map { $0.title }.sorted { $0.lowercased() < $1.lowercased() }
         
-        // Prints all the titles sorted
+        // Debugging: Print sorted titles
         sortedTitles.forEach { print($0) }
+    }
+
+    /// Returns a list of books ordered by download count (descending)
+    func getBooksOrderedByDownloads() -> [Book] {
+        let sortedBooks = books.sorted(by: { $0.downloadCount > $1.downloadCount })
         
-        //Prints just the first item
-        print(sortedTitles[0])
+        // Debugging: Print each book's title and download count
+        for book in sortedBooks {
+            print("Title: \(book.title), Downloads: \(book.downloadCount)")
+        }
+        
+        return sortedBooks
     }
     
-    // Get the most downloaded book
+    // MARK: - Most Downloaded Book
+    
+    /// Updates the view data with the most downloaded book and its download count (Not currently used in the UI)
     func getMostDownloaded() {
         if let book = books.max(by: { $0.downloadCount < $1.downloadCount }) {
             viewData = HomeViewData(mostDownloadedBook: book.title, downloadTotal: "Downloaded: \(book.downloadCount) times")
         }
     }
+
+    // MARK: - Navigation
+    
+    /// Navigates to the search page using the entered book name (Not currently used in the UI)
+    func navigateToSearch() {
+        router.navigate(to: .searchedPage(bookEntered))
+    }
+    
 }

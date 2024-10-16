@@ -20,17 +20,23 @@ class ViewModel: ObservableObject {
     @Published var message: String = ""
     @Published var emptySearch: String = ""
     
-    @EnvironmentObject var router: Router
+    var router: Router
     
     private let networkRepository = BookRepository()
+    
+    init(router: Router) {
+        self.router = router
+    }
 
     // MARK: - Fetch Books from Repository
     
     /// Fetches books from the repository asynchronously
+    @MainActor
     func fetchBookRepo() async {
         do {
             // Fetch books from the repository
             books = try await networkRepository.fetchBookRepo()
+            print(books.count)
         } catch NetworkError.invalidURL {
             message = "Invalid URL"
         } catch NetworkError.invalidResponse {
@@ -53,11 +59,9 @@ class ViewModel: ObservableObject {
         }
 
         // Map the titles and filter books
-        let bookTitles = books.map { $0.title }
         let searchedBooks = books.filter { $0.title.localizedCaseInsensitiveContains(bookEntered) }
-
-        // Debugging output
-        print("found for: \(searchedBooks)") 
+ 
+        router.navigate(to: .searchResultPage(searchedBooks))
 
 //        // Check if any books were found
 //        if searchedBooks.isEmpty {
@@ -67,6 +71,7 @@ class ViewModel: ObservableObject {
 //        }
     }
 
+    //create page, what data page needs, add property book of type book, 
 
     // MARK: - Sorting Functions
     

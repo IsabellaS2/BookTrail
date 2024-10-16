@@ -13,11 +13,13 @@ struct BooksApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
-                ContentView(viewModel: ViewModel())
+                ContentView(viewModel: ViewModel(router: router))
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
                         case let .searchedPage(bookId):
                             SearchPageView()
+                        case let .searchResultPage(books):
+                            SearchResultView(books: books)
                         }
                     }
             }

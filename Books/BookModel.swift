@@ -13,7 +13,7 @@ struct BooksResponse: Codable {
 }
 
 // Struct representing each book in the results array
-struct Book: Codable, Identifiable {
+struct Book: Codable, Identifiable, Hashable {
     var id: Int                      // Unique identifier for each book
     var title: String                // Title of the book
     var authors: [Author]            // List of authors associated with the book
@@ -23,7 +23,7 @@ struct Book: Codable, Identifiable {
     var languages: [String]          // Languages the book is available in
 
     // Nested Author struct
-    struct Author: Codable {
+    struct Author: Codable, Hashable {
         let name: String             
         let birthYear: Int?
         let deathYear: Int?

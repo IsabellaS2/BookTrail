@@ -46,17 +46,27 @@ class ViewModel: ObservableObject {
     
     /// Handles search functionality when user enters a book title  (Not currently used in the UI)
     func searchButtonFunctionality() {
-        let bookTitles = books.map { $0.title }
-        let searchedBooks = books.filter { $0.title.contains(bookEntered) }
-        
-        if bookTitles.contains(bookEntered) {
-            message = "We have your book, yay!"
-        } else {
-            message = "Sorry, we do not have your book!"
+        // Check if bookEntered is not empty
+        guard !bookEntered.isEmpty else {
+            message = "Please enter a book title to search!"
+            return
         }
-        
-        print(searchedBooks.map { $0.title }) // For debugging purposes
+
+        // Map the titles and filter books
+        let bookTitles = books.map { $0.title }
+        let searchedBooks = books.filter { $0.title.localizedCaseInsensitiveContains(bookEntered) }
+
+        // Debugging output
+        print("found for: \(searchedBooks)") 
+
+//        // Check if any books were found
+//        if searchedBooks.isEmpty {
+//            message = "Sorry, we do not have your book!"
+//        } else {
+//            message = "We have your book(s): \(searchedBooks.map { $0.title }.joined(separator: ", "))"
+//        }
     }
+
 
     // MARK: - Sorting Functions
     
@@ -73,9 +83,9 @@ class ViewModel: ObservableObject {
         let sortedBooks = books.sorted(by: { $0.downloadCount > $1.downloadCount })
         
         // Debugging: Print each book's title and download count
-        for book in sortedBooks {
-            print("Title: \(book.title), Downloads: \(book.downloadCount)")
-        }
+//        for book in sortedBooks {
+//            print("Title: \(book.title), Downloads: \(book.downloadCount)")
+//        }
         
         return sortedBooks
     }

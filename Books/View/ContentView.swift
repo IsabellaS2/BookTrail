@@ -40,7 +40,8 @@ struct ContentView: View {
             
             Button(action: {
 //                viewModel.getBooksOrderedByDownloads
-                router.navigate(to: .searchedPage("123"))
+//                router.navigate(to: .searchedPage("123"))
+                viewModel.searchButtonFunctionality()
 
             }) {
                 Text("Go")

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchPageView: View {
-    @ObservedObject var viewModel = ViewModel()
+    @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         ScrollView {
@@ -106,7 +106,7 @@ struct SearchPageView: View {
                 
                 //Other books by authors name
                 VStack(alignment: .leading) {
-                    //              Text("Other books by \(viewModel.$authorsName)")
+                    //Text("Other books by \(viewModel.$authorsName)")
                     Text("Other books by authors name")
                         .font(Font.custom("Cochin", size: 24))
                         .foregroundColor(Color("darkestBrown"))
@@ -138,7 +138,7 @@ struct SearchPageView: View {
                 //Other books in that genre
                 VStack(alignment: .leading) {
                     
-                    //              Text("Other books in \(viewModel.$genre)")
+                    //Text("Other books in \(viewModel.$genre)")
                     Text("Other books in that genre")
                         .font(Font.custom("Cochin", size: 24))
                         .foregroundColor(Color("darkestBrown"))
@@ -174,8 +174,8 @@ struct SearchPageView: View {
     
 }
 
-#Preview {
-    SearchPageView()
-        .environmentObject(Router())
-    
-}
+//#Preview {
+//    SearchPageView()
+//        .environmentObject(Router())
+//    
+//}

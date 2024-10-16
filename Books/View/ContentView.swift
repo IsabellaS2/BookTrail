@@ -34,13 +34,10 @@ struct ContentView: View {
             TextField("Search...", text: $viewModel.bookEntered)
                 .padding(10.0)
                 .frame(height: 40.0)
+                .textInputAutocapitalization(.never)
                 .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("caramel")/*@END_MENU_TOKEN@*/)
-                .onSubmit {
-                }
             
             Button(action: {
-//                viewModel.getBooksOrderedByDownloads
-//                router.navigate(to: .searchedPage("123"))
                 viewModel.searchButtonFunctionality()
 
             }) {
@@ -48,9 +45,6 @@ struct ContentView: View {
                     .font(Font.custom("Cochin", size: 24))
                     .foregroundColor(Color("darkestBrown"))
             }
-            
-            
-            
             
             Spacer()
             
@@ -91,7 +85,7 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView(viewModel: ViewModel())
-        .environmentObject(Router())
-}
+//#Preview {
+//    ContentView(viewModel: ViewModel())
+//        .environmentObject(Router())
+//}

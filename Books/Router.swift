@@ -11,6 +11,7 @@ final class Router: ObservableObject {
     
     public enum Destination: Codable, Hashable {
         case searchedPage(String)
+        case searchResultPage([Book])
     }
     
     @Published var navPath = NavigationPath()

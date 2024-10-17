@@ -1,5 +1,5 @@
 //
-//  SearchResultView.swift
+//  testDesignView.swift
 //  Books
 //
 //  Created by Isabella Sulisufi on 16/10/2024.
@@ -7,12 +7,8 @@
 
 import SwiftUI
 
-struct SearchResultView: View {
+struct testDesignView: View {
 
-    let books: [Book]
-    @State private var showSheet = false
-    @State private var selectedBook: Book?
-    
     @State private var numOfBooksFound = 8
     @State private var searchedBooks = "Romeo and Juliet"
     @State private var bookTitle = "Romeo and Juliet"
@@ -21,7 +17,9 @@ struct SearchResultView: View {
     @State private var bookCategory2 = "Romance"
 
     var body: some View {
-        VStack(spacing: 8) {
+
+        VStack(alignment: .leading) {
+            // Logo Icon Section
             HStack {
                 Image(systemName: "book")
                     .resizable()
@@ -34,7 +32,7 @@ struct SearchResultView: View {
                 Spacer()
             }
             .padding(.leading, 18.0)
-            
+
             // Title Section
             VStack(alignment: .leading) {
                 Text("Results for \"\(searchedBooks)\" ")
@@ -50,7 +48,8 @@ struct SearchResultView: View {
                     )
             }
             .padding(.bottom, 50.0)
-            
+
+            // Card for authors
             HStack {
                 VStack(alignment: .leading) {
                     Text("\(bookTitle) by \(bookAuthor)")
@@ -89,26 +88,14 @@ struct SearchResultView: View {
             .padding()
             .background(Color("sandBrown"))
             .cornerRadius(8)
-            
-            ForEach(books) { book in
-                Button {
-                    selectedBook = book
-                    showSheet = true
-                } label: {
-                    Text(book.title)
-                }
-            }
-            // i wanna map these titles to the cards
-            
 
-            
+            Spacer()
         }
+        .padding(.horizontal, 18.0)
         .background(Color("background"))
-
     }
 }
 
-
 #Preview {
-    SearchResultView(books: [])
+    testDesignView()
 }

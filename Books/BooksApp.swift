@@ -16,8 +16,8 @@ struct BooksApp: App {
                 ContentView(viewModel: ViewModel(router: router))
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
-                        case let .searchedPage(bookId):
-                            SearchPageView()
+//                        case let .searchedPage(bookId):
+//                            SearchPageView()
                         case let .searchResultPage(books):
                             SearchResultView(books: books)
                         }

@@ -18,6 +18,7 @@ class ViewModel: ObservableObject {
     @Published var bookEntered: String = ""
     @Published var message: String = ""
     @Published var emptySearch: String = ""
+    @Published var showSheet = false
 
     var router: Router
 
@@ -26,8 +27,6 @@ class ViewModel: ObservableObject {
     init(router: Router) {
         self.router = router
     }
-
-    // MARK: - Fetch Books from Repository
 
     /// Fetches books from the repository asynchronously
     @MainActor
@@ -47,30 +46,18 @@ class ViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Search Functionality
-
-    /// Handles search functionality when user enters a book title  (Not currently used in the UI)
+    /// Handles search functionality when user enters a book title
     func searchButtonFunctionality() {
-        // Check if bookEntered is not empty
-        guard !bookEntered.isEmpty else {
-            message = "Please enter a book title to search!"
-            return
-        }
-
-        // Map the titles and filter books
         let searchedBooks = books.filter { $0.title.localizedCaseInsensitiveContains(bookEntered) }
 
-        router.navigate(to: .searchResultPage(searchedBooks))
-
-        //        // Check if any books were found
-        //        if searchedBooks.isEmpty {
-        //            message = "Sorry, we do not have your book!"
-        //        } else {
-        //            message = "We have your book(s): \(searchedBooks.map { $0.title }.joined(separator: ", "))"
-        //        }
+        if searchedBooks.isEmpty {
+            showSheet = true
+            bookEntered = ""
+        } else {
+            showSheet = false
+            router.navigate(to: .searchResultPage(searchedBooks))
+        }
     }
-
-    // create page, what data page needs, add property book of type book,
 
     // MARK: - Sorting Functions
 
@@ -90,7 +77,6 @@ class ViewModel: ObservableObject {
         //        for book in sortedBooks {
         //            print("Title: \(book.title), Downloads: \(book.downloadCount)")
         //        }
-
         return sortedBooks
     }
 
@@ -102,12 +88,4 @@ class ViewModel: ObservableObject {
             viewData = HomeViewData(mostDownloadedBook: book.title, downloadTotal: "Downloaded: \(book.downloadCount) times")
         }
     }
-
-    // MARK: - Navigation
-
-    /// Navigates to the search page using the entered book name (Not currently used in the UI)
-    //    func navigateToSearch() {
-    //        router.navigate(to: .searchedPage(bookEntered))
-    //    }
-
 }

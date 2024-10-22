@@ -13,7 +13,7 @@ struct BooksApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
-                ContentView(viewModel: ViewModel(router: router))
+                HomeView(viewModel: ViewModel(router: router))
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
 //                        case let .searchedPage(bookId):

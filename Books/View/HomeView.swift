@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var router: Router
 
@@ -86,6 +86,6 @@ struct ContentView: View {
 }
 
 //#Preview {
-//    ContentView(viewModel: ViewModel())
+//    HomeView(viewModel: ViewModel(router: Router))
 //        .environmentObject(Router())
 //}

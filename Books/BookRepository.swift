@@ -16,33 +16,33 @@ enum NetworkError: Error {
 class BookRepository {
     func fetchBookRepo() async throws -> [Book] {
         let endpoint = "https://gutendex.com/books/"
-        
+
         guard let url = URL(string: endpoint) else {
             throw NetworkError.invalidURL
         }
-        
+
         let (data, response) = try await URLSession.shared.data(from: url)
-        
+
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw NetworkError.invalidResponse
         }
-        
+
         do {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             let booksResponse = try decoder.decode(BooksResponse.self, from: data)
             return booksResponse.results
-            
+
         } catch {
             throw NetworkError.decodingError
         }
     }
 }
 
-//struct NetworkService {
-//    
+// struct NetworkService {
+//
 //    func fetchRepo(userName: String) async throws -> [Repository] {
-//        
+//
 //        guard let url = URL(string: "https://api.github.com/users/\(userName)/repos") else {
 //            throw NetworkError.invalidURL
 //        }
@@ -54,16 +54,16 @@ class BookRepository {
 //            throw NetworkError.decodingError
 //        }
 //    }
-//}
+// }
 //
-//class GitHubViewModel {
-//        
+// class GitHubViewModel {
+//
 //    let networkService: NetworkService
-//    
+//
 //    init(networkService: NetworkService) {
 //        self.networkService = networkService
 //    }
-//    
+//
 //    func presentRepositories() async {
 //        do {
 //            let repositories = try await self.networkService.fetchRepo(userName: "pointfreeco")
@@ -72,4 +72,4 @@ class BookRepository {
 //            print("Error: \(error)")
 //        }
 //    }
-//}
+// }

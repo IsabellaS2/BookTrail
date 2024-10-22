@@ -24,7 +24,7 @@ struct Book: Codable, Identifiable, Hashable {
 
     // Nested Author struct
     struct Author: Codable, Hashable {
-        let name: String             
+        let name: String
         let birthYear: Int?
         let deathYear: Int?
     }

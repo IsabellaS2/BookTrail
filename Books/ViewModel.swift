@@ -20,7 +20,6 @@ class ViewModel: ObservableObject {
     @Published var emptySearch: String = ""
     @Published var showSheet = false
 
-
     var router: Router
 
     private let networkRepository = BookRepository()
@@ -47,11 +46,10 @@ class ViewModel: ObservableObject {
         }
     }
 
-
     /// Handles search functionality when user enters a book title
     func searchButtonFunctionality() {
         let searchedBooks = books.filter { $0.title.localizedCaseInsensitiveContains(bookEntered) }
-    
+
         if searchedBooks.isEmpty {
             showSheet = true
             bookEntered = ""
@@ -76,9 +74,9 @@ class ViewModel: ObservableObject {
         let sortedBooks = books.sorted(by: { $0.downloadCount > $1.downloadCount })
 
         // Debugging: Print each book's title and download count
-//        for book in sortedBooks {
-//            print("Title: \(book.title), Downloads: \(book.downloadCount)")
-//        }
+        //        for book in sortedBooks {
+        //            print("Title: \(book.title), Downloads: \(book.downloadCount)")
+        //        }
         return sortedBooks
     }
 

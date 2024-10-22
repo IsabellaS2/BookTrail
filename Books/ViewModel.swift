@@ -5,7 +5,6 @@
 //  Created by Isabella Sulisufi on 20/08/2024.
 //
 
-import Foundation
 import SwiftUI
 
 struct HomeViewData {

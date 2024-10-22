@@ -10,18 +10,19 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var router: Router
-
-    
+        
     var body: some View {
         VStack {
-            Image(systemName: "book")
-                .resizable()
-                .frame(width: 67, height: 50)
-                .foregroundColor(Color("brownbrown"))
-            
-            Text("Booktrail")
-                .font(Font.custom("Inknut Antiqua", size: 32))
-                .foregroundColor(Color("darkestBrown"))
+            VStack(spacing: 0) {
+                Image(systemName: "book")
+                    .resizable()
+                    .frame(width: 67, height: 50)
+                    .foregroundColor(Color("brownbrown"))
+                
+                Text("Booktrail")
+                    .font(Font.custom("Inknut Antiqua", size: 32))
+                    .foregroundColor(Color("darkestBrown"))
+            }
             
             Spacer()
             
@@ -35,16 +36,23 @@ struct HomeView: View {
                 .padding(10.0)
                 .frame(height: 40.0)
                 .textInputAutocapitalization(.never)
-                .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("caramel")/*@END_MENU_TOKEN@*/)
+                .background(Color("caramel"))
             
             Button(action: {
                 viewModel.searchButtonFunctionality()
-
             }) {
                 Text("Go")
                     .font(Font.custom("Cochin", size: 24))
                     .foregroundColor(Color("darkestBrown"))
             }
+            .sheet(isPresented: $viewModel.showSheet) {
+                VStack(spacing: 8) {
+                    Text("The title you have entered is not available, please try again!")
+                }
+                .presentationDetents([.fraction(0.25)])
+                .presentationDragIndicator(.visible)
+            }
+    
             
             Spacer()
             
@@ -67,7 +75,9 @@ struct HomeView: View {
                                       .font(Font.custom("Cochin", size: 20))
                                       .foregroundColor(Color("darkestBrown"))
                                       .multilineTextAlignment(.center)
-                                      .lineLimit(2)
+                                      .frame(width: 96.0)
+                                      .lineLimit(nil)
+                                      .padding(.top, 8)
                               }
                               .padding(.trailing, 10.0)
                           }

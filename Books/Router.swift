@@ -10,7 +10,7 @@ import SwiftUI
 final class Router: ObservableObject {
 
     public enum Destination: Codable, Hashable {
-        //        case searchedPage(String)
+        case searchedPage(Book)
         case searchResultPage([Book], String)
     }
 

@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct SearchResultView: View {
-    
+    @ObservedObject var viewModel: ViewModel
+
 
     let books: [Book]
     let searchedWord: String
     
     @State private var showSheet = false
     @State private var selectedBook: Book?
-    @State private var bookCategory2 = "Romance"
+
 
     var body: some View {
         ScrollView {
@@ -38,7 +39,6 @@ struct SearchResultView: View {
 
                 // Title Result Section
                 VStack(alignment: .leading) {
-                    //showing "" instead of book
                     Text("Results for \"\(self.searchedWord)\"")
                         .font(Font.custom("Iowan Old Style", size: 25))
                         .foregroundColor(Color("darkestBrown"))
@@ -52,8 +52,7 @@ struct SearchResultView: View {
 
                 ForEach(books) { book in
                     Button(action: {
-                        selectedBook = book
-                        showSheet = true
+                        viewModel.navigateToSelectedBook(with: book)
                     }) {
 
                         HStack {
@@ -81,17 +80,6 @@ struct SearchResultView: View {
                                         .background(Color("caramel"))
                                         .cornerRadius(9)
                                     }
-
-                                    // Optional second category tag
-                                    HStack(alignment: .center, spacing: 0) {
-                                        Text(bookCategory2)
-                                            .font(Font.custom("Iowan Old Style", size: 14))
-                                            .foregroundColor(Color("background"))
-                                    }
-                                    .padding(.vertical, 4.0)
-                                    .padding(.horizontal, 6.0)
-                                    .background(Color("caramel"))
-                                    .cornerRadius(9)
 
                                     Spacer()
                                 }

@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct BooksApp: App {
     @ObservedObject var router = Router()
+
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
@@ -17,10 +18,10 @@ struct BooksApp: App {
                 HomeView(viewModel: vm)
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
-//                        case let .searchedPage(bookId):
-//                            SearchPageView()
+                        case let .searchedPage(book):
+                            SearchPageView(viewModel: vm, clickedBook: book)
                         case let .searchResultPage(books, searchedWord):
-                            SearchResultView(books: books, searchedWord: searchedWord)
+                            SearchResultView(viewModel: vm, books: books, searchedWord: searchedWord)
                         }
                     }
             }

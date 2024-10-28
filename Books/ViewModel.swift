@@ -18,7 +18,9 @@ class ViewModel: ObservableObject {
     @Published var bookEntered: String = ""
     @Published var message: String = ""
     @Published var emptySearch: String = ""
-    @Published var showSheet = false
+    @Published var showHomeSheet = false
+    
+    @Published var selectedBook: Book?
 
     var router: Router
 
@@ -33,9 +35,7 @@ class ViewModel: ObservableObject {
     @MainActor
     func fetchBookRepo() async {
         do {
-            // Fetch books from the repository
             books = try await networkRepository.fetchBookRepo()
-            print(books.count)
         } catch NetworkError.invalidURL {
             message = "Invalid URL"
         } catch NetworkError.invalidResponse {
@@ -54,12 +54,17 @@ class ViewModel: ObservableObject {
         let searchedBooks = books.filter { $0.title.localizedCaseInsensitiveContains(bookEntered) }
 
         if searchedBooks.isEmpty {
-            showSheet = true
+            showHomeSheet = true
             bookEntered = ""
         } else {
-            showSheet = false
+            showHomeSheet = false
             router.navigate(to: .searchResultPage(searchedBooks, bookEntered))
         }
+    }
+    
+    func navigateToSelectedBook(with book: Book) {
+        selectedBook = book
+        router.navigate(to: .searchedPage(book)) // Pass the entire Book object
     }
     
     
@@ -77,13 +82,13 @@ class ViewModel: ObservableObject {
     /// Returns a list of books ordered by download count (descending)
     func getBooksOrderedByDownloads() -> [Book] {
         let sortedBooks = books.sorted(by: { $0.downloadCount > $1.downloadCount })
-
+        return sortedBooks
         // Debugging: Print each book's title and download count
         //        for book in sortedBooks {
         //            print("Title: \(book.title), Downloads: \(book.downloadCount)")
         //        }
-        return sortedBooks
     }
+    
 
     // MARK: - Most Downloaded Book
 

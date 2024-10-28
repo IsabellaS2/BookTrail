@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var viewModel: ViewModel
-    @EnvironmentObject var router: Router
 
     var body: some View {
         VStack {

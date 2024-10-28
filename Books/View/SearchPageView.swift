@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchPageView: View {
     @ObservedObject var viewModel: ViewModel
+    let clickedBook: Book
 
     var body: some View {
         ScrollView {
@@ -63,45 +64,67 @@ struct SearchPageView: View {
                 // Book Information
                 HStack {
                     Rectangle()
-                        .frame(width: 130.0, height: 155.0)
+                        .frame(width: 120.0, height: 155.0)
                         .foregroundColor(Color("caramel"))
 
                     VStack(alignment: .leading) {
-                        Text("Title")
+                        Text(clickedBook.title)
                             .font(Font.custom("Cochin", size: 25))
                             .foregroundColor(Color("brownbrown"))
 
-                        Text("Authors Name")
+                        Text(clickedBook.authors[0].name)
                             .font(Font.custom("Cochin", size: 18))
                             .foregroundColor(Color("brownbrown"))
 
-                        Text("Birth - Death")
-                            .font(Font.custom("Cochin", size: 12))
+                        Text("\(clickedBook.authors.first?.birthYear.map { "\($0)" } ?? "Unknown") - \(clickedBook.authors.first?.deathYear.map { "\($0)" } ?? "Unknown")")
+                            .font(Font.custom("Cochin", size: 14))
                             .foregroundColor(Color("brownbrown"))
                             .padding(.bottom, 4.0)
-
-                        Text("Subjects")
-                            .font(Font.custom("Cochin", size: 18))
-                            .foregroundColor(Color("brownbrown"))
-
-                        Text("\u{2022} subjectone")
-                            .font(Font.custom("Cochin", size: 16))
-                            .foregroundColor(Color("brownbrown"))
-
-                        Text("\u{2022} subjecttwo")
-                            .font(Font.custom("Cochin", size: 16))
-                            .foregroundColor(Color("brownbrown"))
+                        Spacer()
                     }
-                    .padding(.leading, 20.0)
+                    .padding(.leading, 5.0)
 
                     Spacer()
                 }
                 .padding(25.0)
+                
+                HStack{
+                    VStack(alignment: .leading) {
+                        
+                        Text("Subjects")
+                            .font(Font.custom("Cochin", size: 18))
+                            .foregroundColor(Color("brownbrown"))
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            ForEach(clickedBook.subjects, id: \.self) { subject in
+                                Text("\u{2022} \(subject)")
+                                    .font(Font.custom("Cochin", size: 16))
+                                    .foregroundColor(Color("brownbrown"))
+                            }
+                        }
+                    }
+                    .padding([.leading, .bottom], 25.0)
+                    Spacer()
+               }
+                
+//                VStack(alignment: .leading) {
+//                    Text("Subjects")
+//                        .font(Font.custom("Cochin", size: 18))
+//                        .foregroundColor(Color("brownbrown"))
+//                    VStack(alignment: .leading, spacing: 4) {
+//                        ForEach(clickedBook.subjects, id: \.self) { subject in
+//                            Text("\u{2022} \(subject)")
+//                                .font(Font.custom("Cochin", size: 16))
+//                                .foregroundColor(Color("brownbrown"))
+//                        }
+//                    }
+//                }
+                
 
                 // Other books by authors name
                 VStack(alignment: .leading) {
                     // Text("Other books by \(viewModel.$authorsName)")
-                    Text("Other books by authors name")
+                    Text("Other books by \(clickedBook.authors[0].name)")
                         .font(Font.custom("Cochin", size: 24))
                         .foregroundColor(Color("darkestBrown"))
                         .multilineTextAlignment(.leading)

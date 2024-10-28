@@ -22,10 +22,11 @@ class ViewModel: ObservableObject {
 
     var router: Router
 
-    private let networkRepository = BookRepository()
+    private let networkRepository: BookRepository
 
-    init(router: Router) {
+    init(router: Router, networkRepository: BookRepository) {
         self.router = router
+        self.networkRepository = networkRepository
     }
 
     /// Fetches books from the repository asynchronously
@@ -45,7 +46,9 @@ class ViewModel: ObservableObject {
             message = "Unexpected error: \(error)"
         }
     }
-
+    
+    
+    
     /// Handles search functionality when user enters a book title
     func searchButtonFunctionality() {
         let searchedBooks = books.filter { $0.title.localizedCaseInsensitiveContains(bookEntered) }
@@ -55,9 +58,11 @@ class ViewModel: ObservableObject {
             bookEntered = ""
         } else {
             showSheet = false
-            router.navigate(to: .searchResultPage(searchedBooks))
+            router.navigate(to: .searchResultPage(searchedBooks, bookEntered))
         }
     }
+    
+    
 
     // MARK: - Sorting Functions
 

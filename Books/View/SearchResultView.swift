@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct SearchResultView: View {
+    
 
     let books: [Book]
+    let searchedWord: String
+    
     @State private var showSheet = false
     @State private var selectedBook: Book?
-
-    @State private var numOfBooksFound = 8
-    @State private var searchedBooks = "Romeo and Juliet"
-    @State private var bookCategory1 = "Humour"
     @State private var bookCategory2 = "Romance"
 
     var body: some View {
@@ -39,12 +38,13 @@ struct SearchResultView: View {
 
                 // Title Result Section
                 VStack(alignment: .leading) {
-                    Text("Results for \"\(searchedBooks)\" ")
+                    //showing "" instead of book
+                    Text("Results for \"\(self.searchedWord)\"")
                         .font(Font.custom("Iowan Old Style", size: 25))
                         .foregroundColor(Color("darkestBrown"))
                         .padding(.bottom, 4.0)
 
-                    Text("We found \(numOfBooksFound) books that match your search")
+                    Text("We found \(books.count) books that match your search")
                         .foregroundColor(Color("darkestBrown"))
                         .font(Font.custom("Iowan Old Style", size: 20).italic())
                 }
@@ -117,6 +117,6 @@ struct SearchResultView: View {
     }
 }
 
-#Preview {
-    SearchResultView(books: [])
-}
+//#Preview {
+//    SearchResultView(books: [])
+//}

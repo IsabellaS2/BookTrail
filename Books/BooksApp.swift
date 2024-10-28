@@ -13,18 +13,18 @@ struct BooksApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
-                HomeView(viewModel: ViewModel(router: router))
+                let vm = ViewModel(router: router, networkRepository: BookRepository())
+                HomeView(viewModel: vm)
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
-                        //                        case let .searchedPage(bookId):
-                        //                            SearchPageView()
-                        case let .searchResultPage(books):
-                            SearchResultView(books: books)
+//                        case let .searchedPage(bookId):
+//                            SearchPageView()
+                        case let .searchResultPage(books, searchedWord):
+                            SearchResultView(books: books, searchedWord: searchedWord)
                         }
                     }
             }
             .environmentObject(router)
-
         }
     }
 }

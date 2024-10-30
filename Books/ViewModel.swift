@@ -19,6 +19,7 @@ class ViewModel: ObservableObject {
     @Published var message: String = ""
     @Published var emptySearch: String = ""
     @Published var showHomeSheet = false
+
     
     @Published var selectedBook: Book?
 
@@ -64,11 +65,10 @@ class ViewModel: ObservableObject {
     
     func navigateToSelectedBook(with book: Book) {
         selectedBook = book
-        router.navigate(to: .searchedPage(book)) // Pass the entire Book object
+        router.navigate(to: .searchedPage(book))
     }
     
     
-
     // MARK: - Sorting Functions
 
     /// Sorts books alphabetically (optional, not currently used in the UI)
@@ -88,6 +88,24 @@ class ViewModel: ObservableObject {
         //            print("Title: \(book.title), Downloads: \(book.downloadCount)")
         //        }
     }
+
+    
+    /// Returns a list of book titles ordered by category
+    func getBooksByCategory(bookTitle: String) -> [String] {
+        var litBookTitles: [String] = []
+
+        for book in books {
+            if book.subjects.contains(where: { $0.localizedCaseInsensitiveContains(bookTitle) }) ||
+               book.bookshelves.contains(where: { $0.localizedCaseInsensitiveContains(bookTitle) }) {
+                litBookTitles.append(book.title)
+            }
+        }
+        
+        print("Books with subjects or bookshelves containing '\(bookTitle)': \(litBookTitles)")
+        return litBookTitles
+    }
+
+
     
 
     // MARK: - Most Downloaded Book

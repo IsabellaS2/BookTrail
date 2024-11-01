@@ -50,6 +50,9 @@ struct HomeView: View {
                 .presentationDetents([.fraction(0.25)])
                 .presentationDragIndicator(.visible)
             }
+            
+            
+            
 
             Spacer()
 
@@ -72,9 +75,10 @@ struct HomeView: View {
                                     .font(Font.custom("Cochin", size: 20))
                                     .foregroundColor(Color("darkestBrown"))
                                     .multilineTextAlignment(.center)
-                                    .frame(width: 96.0)
+                                    .frame(width: 96.0, height: 70.0)
                                     .lineLimit(nil)
-                                    .padding(.top, 8)
+                                    .padding(.top, 8.0)
+                                    .fixedSize(horizontal: false, vertical: true)
                             }
                             .padding(.trailing, 10.0)
                         }
@@ -82,6 +86,48 @@ struct HomeView: View {
                     }
                 }
             }
+            .padding(.bottom, 50.0)
+            
+            // Gothic Fiction
+            VStack(alignment: .leading) {
+                Text("Gothic Fiction")
+                    .font(Font.custom("Cochin", size: 24))
+                    .foregroundColor(Color("darkestBrown"))
+                    .multilineTextAlignment(.leading)
+
+                ScrollView(.horizontal) {
+                    HStack {
+                        let bookTitles = viewModel.getBooksByCategory(bookTitle: "Gothic Fiction").prefix(5)
+
+                        if bookTitles.isEmpty {
+                            Text("No books found")
+                                .font(Font.custom("Cochin", size: 20))
+                                .foregroundColor(Color("darkestBrown"))
+                                .multilineTextAlignment(.center)
+                        } else {
+                            ForEach(bookTitles, id: \.self) { title in
+                                VStack {
+                                    Rectangle()
+                                        .frame(width: 96.0, height: 114.0)
+                                        .foregroundColor(Color("caramel"))
+
+                                    Text(title)
+                                        .font(Font.custom("Cochin", size: 20))
+                                        .foregroundColor(Color("darkestBrown"))
+                                        .multilineTextAlignment(.center)
+                                        .frame(width: 96.0, height: 70.0)
+                                        .lineLimit(nil)
+                                        .padding(.top, 8.0)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .padding(.trailing, 10.0)
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+            }
+            .padding(.bottom, 50.0)
             Spacer()
         }
         .padding()
@@ -91,8 +137,3 @@ struct HomeView: View {
         }
     }
 }
-
-// #Preview {
-//    HomeView(viewModel: ViewModel(router: Router))
-//        .environmentObject(Router())
-// }

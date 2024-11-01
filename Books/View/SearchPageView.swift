@@ -121,37 +121,6 @@ struct SearchPageView: View {
 //                }
                 
 
-                // Other books by authors name
-                VStack(alignment: .leading) {
-                    // Text("Other books by \(viewModel.$authorsName)")
-                    Text("Other books by \(clickedBook.authors[0].name)")
-                        .font(Font.custom("Cochin", size: 24))
-                        .foregroundColor(Color("darkestBrown"))
-                        .multilineTextAlignment(.leading)
-
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(0..<3) { _ in
-                                VStack {
-                                    Rectangle()
-                                        .frame(width: 96.0, height: 114.0)
-                                        .foregroundColor(Color("caramel"))
-
-                                    Text("title")
-                                        .font(Font.custom("Cochin", size: 20))
-                                        .foregroundColor(Color("darkestBrown"))
-                                        .multilineTextAlignment(.center)
-                                        .lineLimit(2)
-                                }
-                                .padding(.trailing, 10.0)
-                            }
-                            Spacer()
-                        }
-                    }
-                }
-                .padding(.leading, 20)
-                .padding(.bottom, 30)
-
                 // Other books in that genre
                 VStack(alignment: .leading) {
 
@@ -182,6 +151,43 @@ struct SearchPageView: View {
                     }
                 }
                 .padding(.leading, 20)
+                
+                // Other books by authors name
+                let bookTitlesByAuthor = viewModel.getBooksByAuthor(authorsName: clickedBook.authors[0].name, excluding: clickedBook.title)
+
+                if !bookTitlesByAuthor.isEmpty {
+                    VStack(alignment: .leading) {
+                        Text("Other books by \(clickedBook.authors[0].name)")
+                            .font(Font.custom("Cochin", size: 24))
+                            .foregroundColor(Color("darkestBrown"))
+                            .multilineTextAlignment(.leading)
+
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(bookTitlesByAuthor, id: \.self) { title in
+                                    VStack {
+                                        Rectangle()
+                                            .frame(width: 96.0, height: 114.0)
+                                            .foregroundColor(Color("caramel"))
+                                        
+                                        Text(title)
+                                            .font(Font.custom("Cochin", size: 20))
+                                            .foregroundColor(Color("darkestBrown"))
+                                            .multilineTextAlignment(.leading)
+                                            .frame(width: 96.0, height: 70.0)
+                                            .lineLimit(nil)
+                                            .padding(.top, 8.0)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    .padding(.trailing, 20.0)
+                                }
+                            }
+                        }
+                    }
+                    .padding(.leading, 20)
+                    .padding(.bottom, 30)
+                }
+
             }
         }
         //        .navigationBarBackButtonHidden()
@@ -190,9 +196,3 @@ struct SearchPageView: View {
     }
 
 }
-
-// #Preview {
-//    SearchPageView()
-//        .environmentObject(Router())
-//
-// }

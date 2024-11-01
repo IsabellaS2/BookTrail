@@ -100,9 +100,19 @@ class ViewModel: ObservableObject {
                 litBookTitles.append(book.title)
             }
         }
-        
-        print("Books with subjects or bookshelves containing '\(bookTitle)': \(litBookTitles)")
         return litBookTitles
+    }
+    
+    /// Returns a list of book titles ordered by author
+    func getBooksByAuthor(authorsName: String, excluding title: String) -> [String] {
+        var booksByAuthor: [String] = []
+
+        for book in books {
+            if book.authors.contains(where: { $0.name.localizedCaseInsensitiveCompare(authorsName) == .orderedSame }) && book.title != title {
+                booksByAuthor.append(book.title)
+            }
+        }
+        return booksByAuthor
     }
 
 

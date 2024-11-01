@@ -48,7 +48,7 @@ struct SearchResultView: View {
                         .foregroundColor(Color("darkestBrown"))
                         .font(Font.custom("Iowan Old Style", size: 20).italic())
                 }
-                .padding(.bottom, 50.0)
+                .padding(.bottom, 35.0)
 
                 ForEach(books) { book in
                     Button(action: {

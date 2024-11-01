@@ -10,13 +10,11 @@ import SwiftUI
 struct SearchResultView: View {
     @ObservedObject var viewModel: ViewModel
 
-
     let books: [Book]
     let searchedWord: String
-    
+
     @State private var showSheet = false
     @State private var selectedBook: Book?
-
 
     var body: some View {
         ScrollView {
@@ -48,13 +46,12 @@ struct SearchResultView: View {
                         .foregroundColor(Color("darkestBrown"))
                         .font(Font.custom("Iowan Old Style", size: 20).italic())
                 }
-                .padding(.bottom, 50.0)
+                .padding(.bottom, 35.0)
 
                 ForEach(books) { book in
                     Button(action: {
                         viewModel.navigateToSelectedBook(with: book)
-                    }) {
-
+                    }, label: {
                         HStack {
                             VStack(alignment: .leading) {
                                 // Book title
@@ -83,7 +80,6 @@ struct SearchResultView: View {
 
                                     Spacer()
                                 }
-
                             }
                             Spacer()
                             Image(systemName: "arrow.right")
@@ -94,7 +90,7 @@ struct SearchResultView: View {
                         .padding()
                         .background(Color("sandBrown"))
                         .cornerRadius(8)
-                    }
+                    })
                 }
                 .background(Color("background"))
 
@@ -105,6 +101,6 @@ struct SearchResultView: View {
     }
 }
 
-//#Preview {
+// #Preview {
 //    SearchResultView(books: [])
-//}
+// }

@@ -20,7 +20,6 @@ class ViewModel: ObservableObject {
     @Published var emptySearch: String = ""
     @Published var showHomeSheet = false
 
-    
     @Published var selectedBook: Book?
 
     var router: Router
@@ -47,12 +46,12 @@ class ViewModel: ObservableObject {
             message = "Unexpected error: \(error)"
         }
     }
-    
-    
-    
+
     /// Handles search functionality when user enters a book title
     func searchButtonFunctionality() {
-        let searchedBooks = books.filter { $0.title.localizedCaseInsensitiveContains(bookEntered) }
+        let searchedBooks = books.filter {
+            $0.title.localizedCaseInsensitiveContains(bookEntered)
+        }
 
         if searchedBooks.isEmpty {
             showHomeSheet = true
@@ -62,13 +61,12 @@ class ViewModel: ObservableObject {
             router.navigate(to: .searchResultPage(searchedBooks, bookEntered))
         }
     }
-    
+
     func navigateToSelectedBook(with book: Book) {
         selectedBook = book
         router.navigate(to: .searchedPage(book))
     }
-    
-    
+
     // MARK: - Sorting Functions
 
     /// Sorts books alphabetically (optional, not currently used in the UI)
@@ -89,7 +87,6 @@ class ViewModel: ObservableObject {
         //        }
     }
 
-    
     /// Returns a list of book titles ordered by category
     func getBooksByCategory(bookTitle: String) -> [String] {
         var litBookTitles: [String] = []
@@ -100,20 +97,31 @@ class ViewModel: ObservableObject {
                 litBookTitles.append(book.title)
             }
         }
-        
-        print("Books with subjects or bookshelves containing '\(bookTitle)': \(litBookTitles)")
         return litBookTitles
     }
 
+    /// Returns a list of book titles ordered by author
+    func getBooksByAuthor(authorsName: String, excluding title: String) -> [String] {
+        var booksByAuthor: [String] = []
 
-    
+        for book in books {
+            if book.authors.contains(where: {
+                $0.name.localizedCaseInsensitiveCompare(authorsName) == .orderedSame
+            }) && book.title != title {
+                booksByAuthor.append(book.title)
+            }
+        }
+        return booksByAuthor
+    }
 
     // MARK: - Most Downloaded Book
 
     /// Updates the view data with the most downloaded book and its download count (Not currently used in the UI)
     func getMostDownloaded() {
         if let book = books.max(by: { $0.downloadCount < $1.downloadCount }) {
-            viewData = HomeViewData(mostDownloadedBook: book.title, downloadTotal: "Downloaded: \(book.downloadCount) times")
+            viewData = HomeViewData(
+                mostDownloadedBook: book.title,
+                downloadTotal: "Downloaded: \(book.downloadCount) times")
         }
     }
 }

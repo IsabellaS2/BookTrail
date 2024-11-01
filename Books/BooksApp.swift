@@ -14,14 +14,14 @@ struct BooksApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
-                let vm = ViewModel(router: router, networkRepository: BookRepository())
-                HomeView(viewModel: vm)
+                let viewModel = ViewModel(router: router, networkRepository: BookRepository())
+                HomeView(viewModel: viewModel)
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
                         case let .searchedPage(book):
-                            SearchPageView(viewModel: vm, clickedBook: book)
+                            SearchPageView(viewModel: viewModel, clickedBook: book)
                         case let .searchResultPage(books, searchedWord):
-                            SearchResultView(viewModel: vm, books: books, searchedWord: searchedWord)
+                            SearchResultView(viewModel: viewModel, books: books, searchedWord: searchedWord)
                         }
                     }
             }

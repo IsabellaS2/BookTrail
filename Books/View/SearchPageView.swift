@@ -76,7 +76,10 @@ struct SearchPageView: View {
                             .font(Font.custom("Cochin", size: 18))
                             .foregroundColor(Color("brownbrown"))
 
-                        Text("\(clickedBook.authors.first?.birthYear.map { "\($0)" } ?? "Unknown") - \(clickedBook.authors.first?.deathYear.map { "\($0)" } ?? "Unknown")")
+                        let birthYear = clickedBook.authors.first?.birthYear.map { "\($0)" } ?? "Unknown"
+                        let deathYear = clickedBook.authors.first?.deathYear.map { "\($0)" } ?? "Unknown"
+
+                        Text("\(birthYear) - \(deathYear)")
                             .font(Font.custom("Cochin", size: 14))
                             .foregroundColor(Color("brownbrown"))
                             .padding(.bottom, 4.0)
@@ -87,14 +90,14 @@ struct SearchPageView: View {
                     Spacer()
                 }
                 .padding(25.0)
-                
-                HStack{
+
+                HStack {
                     VStack(alignment: .leading) {
-                        
+
                         Text("Subjects")
                             .font(Font.custom("Cochin", size: 18))
                             .foregroundColor(Color("brownbrown"))
-                        
+
                         VStack(alignment: .leading, spacing: 4) {
                             ForEach(clickedBook.subjects, id: \.self) { subject in
                                 Text("\u{2022} \(subject)")
@@ -106,7 +109,7 @@ struct SearchPageView: View {
                     .padding([.leading, .bottom], 25.0)
                     Spacer()
                }
-                
+
 //                VStack(alignment: .leading) {
 //                    Text("Subjects")
 //                        .font(Font.custom("Cochin", size: 18))
@@ -119,7 +122,6 @@ struct SearchPageView: View {
 //                        }
 //                    }
 //                }
-                
 
                 // Other books in that genre
                 VStack(alignment: .leading) {
@@ -151,9 +153,12 @@ struct SearchPageView: View {
                     }
                 }
                 .padding(.leading, 20)
-                
+
                 // Other books by authors name
-                let bookTitlesByAuthor = viewModel.getBooksByAuthor(authorsName: clickedBook.authors[0].name, excluding: clickedBook.title)
+                let bookTitlesByAuthor = viewModel.getBooksByAuthor(
+                    authorsName: clickedBook.authors[0].name,
+                    excluding: clickedBook.title
+                )
 
                 if !bookTitlesByAuthor.isEmpty {
                     VStack(alignment: .leading) {
@@ -169,7 +174,7 @@ struct SearchPageView: View {
                                         Rectangle()
                                             .frame(width: 96.0, height: 114.0)
                                             .foregroundColor(Color("caramel"))
-                                        
+
                                         Text(title)
                                             .font(Font.custom("Cochin", size: 20))
                                             .foregroundColor(Color("darkestBrown"))

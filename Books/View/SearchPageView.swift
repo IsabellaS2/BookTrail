@@ -36,37 +36,8 @@ struct SearchPageView: View {
                 }
                 .padding(.leading, 18.0)
 
-                // Searched box
-                TextField("Search...", text: $viewModel.emptySearch)
-                    .padding(12.0)
-                    .frame(width: 360.0, height: 40.0)
-                    .font(Font.custom("Cochin", size: 24))
-                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color("caramel")/*@END_MENU_TOKEN@*/)
-
                 Text(viewModel.bookEntered)
 
-                // Sort and Filter Section
-                HStack {
-                    HStack {
-                        Image(systemName: "arrow.up.arrow.down")
-                            .foregroundColor(Color("darkestBrown"))
-
-                        Text("Sort")
-                            .font(Font.custom("Cochin", size: 24))
-                            .foregroundColor(Color("darkestBrown"))
-                    }
-                    Spacer()
-
-                    HStack {
-                        Image(systemName: "square.and.arrow.down.fill")
-                            .foregroundColor(Color("darkestBrown"))
-
-                        Text("Filter")
-                            .font(Font.custom("Cochin", size: 24))
-                            .foregroundColor(Color("darkestBrown"))
-                    }
-                }
-                .padding(.horizontal, 20.0)
 
                 // Book Information
                 HStack {

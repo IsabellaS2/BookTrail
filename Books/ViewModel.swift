@@ -19,8 +19,11 @@ class ViewModel: ObservableObject {
     @Published var message: String = ""
     @Published var emptySearch: String = ""
     @Published var showHomeSheet = false
-
     @Published var selectedBook: Book?
+
+    @Published var genres = ["Fiction", "Literature", "Science-Fiction & Fantasy",
+                             "Horror Tales", "Drama", "Poetry", "Best Books Ever Listings",
+                             "History", "Society", "Travel & Geography", "Harvard Classics", "Humour"]
 
     var router: Router
 
@@ -124,4 +127,28 @@ class ViewModel: ObservableObject {
                 downloadTotal: "Downloaded: \(book.downloadCount) times")
         }
     }
+
+    /// Find the matched genre for the subject
+    func findMatchedGenre(for subject: String) -> String? {
+        let matched = genres.first { genre in
+            subject.localizedCaseInsensitiveContains(genre)
+        }
+        print("Matched genre for subject '\(subject)': \(matched ?? "None")")
+        return matched
+    }
+
+    /// Fetch books for the matched genre
+    func getBooksForMatchedGenre(subject: String) -> [String] {
+        guard let matchedGenre = findMatchedGenre(for: subject) else {
+            return []
+        }
+
+        let books = getBooksByCategory(bookTitle: matchedGenre).prefix(8).map { $0 }
+
+        print("Books found for genre '\(matchedGenre)':")
+        books.forEach { print($0) }
+
+        return books
+    }
+
 }

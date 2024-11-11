@@ -44,7 +44,7 @@ struct HomeView: View {
                         .font(Font.custom("Cochin", size: 24))
                         .foregroundColor(Color("darkestBrown"))
                         .padding(.bottom, 20.0)
-                }
+                })
                 .sheet(isPresented: $viewModel.showHomeSheet, content: {
                     VStack(spacing: 8) {
                         Text("The title you have entered is not available, please try again!")

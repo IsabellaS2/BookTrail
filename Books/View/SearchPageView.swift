@@ -11,6 +11,13 @@ struct SearchPageView: View {
     @ObservedObject var viewModel: ViewModel
     let clickedBook: Book
 
+    private var bookTitles: [String] {
+        if let firstSubject = clickedBook.subjects.first {
+            return viewModel.getBooksForMatchedGenre(subject: firstSubject)
+        }
+        return []
+    }
+
     var body: some View {
         ScrollView {
             VStack {
@@ -91,6 +98,7 @@ struct SearchPageView: View {
                 }
                 .padding(25.0)
 
+                // Subjects
                 HStack {
                     VStack(alignment: .leading) {
 
@@ -110,49 +118,50 @@ struct SearchPageView: View {
                     Spacer()
                }
 
-//                VStack(alignment: .leading) {
-//                    Text("Subjects")
-//                        .font(Font.custom("Cochin", size: 18))
-//                        .foregroundColor(Color("brownbrown"))
-//                    VStack(alignment: .leading, spacing: 4) {
-//                        ForEach(clickedBook.subjects, id: \.self) { subject in
-//                            Text("\u{2022} \(subject)")
-//                                .font(Font.custom("Cochin", size: 16))
-//                                .foregroundColor(Color("brownbrown"))
-//                        }
-//                    }
-//                }
-
-                // Other books in that genre
+                // Book by category
                 VStack(alignment: .leading) {
+                    if let matchedGenre = viewModel.findMatchedGenre(for: clickedBook.subjects.first ?? "") {
+                        Text("Other books in \(matchedGenre)")
+                            .font(Font.custom("Cochin", size: 24))
+                            .foregroundColor(Color("darkestBrown"))
+                            .multilineTextAlignment(.leading)
 
-                    // Text("Other books in \(viewModel.$genre)")
-                    Text("Other books in that genre")
-                        .font(Font.custom("Cochin", size: 24))
-                        .foregroundColor(Color("darkestBrown"))
-                        .multilineTextAlignment(.leading)
+                        let bookTitles = viewModel.getBooksForMatchedGenre(subject: matchedGenre).prefix(8)
 
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(0..<3) { _ in
-                                VStack {
-                                    Rectangle()
-                                        .frame(width: 96.0, height: 114.0)
-                                        .foregroundColor(Color("caramel"))
-
-                                    Text("title")
+                        ScrollView(.horizontal) {
+                            HStack {
+                                if bookTitles.isEmpty {
+                                    Text("No books found")
                                         .font(Font.custom("Cochin", size: 20))
                                         .foregroundColor(Color("darkestBrown"))
                                         .multilineTextAlignment(.center)
-                                        .lineLimit(2)
+                                } else {
+                                    ForEach(bookTitles, id: \.self) { title in
+                                        VStack {
+                                            Rectangle()
+                                                .frame(width: 96.0, height: 114.0)
+                                                .foregroundColor(Color("caramel"))
+
+                                            Text(title)
+                                                .font(Font.custom("Cochin", size: 20))
+                                                .foregroundColor(Color("darkestBrown"))
+                                                .multilineTextAlignment(.center)
+                                                .frame(width: 96.0, height: 70.0)
+                                                .lineLimit(nil)
+                                                .padding(.top, 8.0)
+                                                .fixedSize(horizontal: false, vertical: true)
+                                        }
+                                        .padding(.trailing, 10.0)
+                                    }
                                 }
-                                .padding(.trailing, 10.0)
+                                Spacer()
                             }
-                            Spacer()
                         }
                     }
                 }
+                .padding(.bottom, 50.0)
                 .padding(.leading, 20)
+                Spacer()
 
                 // Other books by authors name
                 let bookTitlesByAuthor = viewModel.getBooksByAuthor(
@@ -195,9 +204,7 @@ struct SearchPageView: View {
 
             }
         }
-        //        .navigationBarBackButtonHidden()
         .background(Color("background"))
 
     }
-
 }

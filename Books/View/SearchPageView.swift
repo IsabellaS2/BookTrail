@@ -38,7 +38,6 @@ struct SearchPageView: View {
 
                 Text(viewModel.bookEntered)
 
-
                 // Book Information
                 HStack {
                     Rectangle()
@@ -87,7 +86,7 @@ struct SearchPageView: View {
                     }
                     .padding([.leading, .bottom], 25.0)
                     Spacer()
-               }
+                }
 
                 // Book by category
                 VStack(alignment: .leading) {

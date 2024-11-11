@@ -96,7 +96,7 @@ class ViewModel: ObservableObject {
 
         for book in books {
             if book.subjects.contains(where: { $0.localizedCaseInsensitiveContains(bookTitle) }) ||
-               book.bookshelves.contains(where: { $0.localizedCaseInsensitiveContains(bookTitle) }) {
+                book.bookshelves.contains(where: { $0.localizedCaseInsensitiveContains(bookTitle) }) {
                 litBookTitles.append(book.title)
             }
         }

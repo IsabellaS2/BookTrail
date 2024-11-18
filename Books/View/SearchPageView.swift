@@ -23,7 +23,7 @@ struct SearchPageView: View {
         let deathYear = clickedBook.authors.first?.deathYear
         ScrollView {
             VStack {
-                
+
                 // Logo Icon Section
                 HStack {
                     Image(systemName: "book")
@@ -52,7 +52,6 @@ struct SearchPageView: View {
                         Text(clickedBook.authors[0].name)
                             .font(Font.custom("Cochin", size: 18))
                             .foregroundColor(Color("brownbrown"))
-
 
                         Text("\(birthYear.map { "\($0)" } ?? "Unknown") - \(deathYear.map { "\($0)" } ?? "Unknown")")
                             .font(Font.custom("Cochin", size: 14))
@@ -85,8 +84,8 @@ struct SearchPageView: View {
                     .padding([.leading, .bottom], 25.0)
                     Spacer()
                 }
-                
-                //Books in that time period
+
+                // Books in that time period
                 VStack(alignment: .leading) {
                     Text("Other books from this era")
                         .font(Font.custom("Cochin", size: 24))
@@ -95,8 +94,9 @@ struct SearchPageView: View {
 
                     ScrollView(.horizontal) {
                         HStack {
-                            let booksInTimePeriod = viewModel.getBooksInTimePeriod(birthYear: birthYear, deathYear: deathYear)
-                            
+                            let booksInTimePeriod = viewModel
+                                .getBooksInTimePeriod(birthYear: birthYear, deathYear: deathYear)
+
                             if booksInTimePeriod.isEmpty {
                                 Text("Loading...")
                                     .font(Font.custom("Cochin", size: 20))
@@ -129,8 +129,6 @@ struct SearchPageView: View {
                 .padding(.bottom, 50.0)
                 .padding(.leading, 20)
 
-
-                
                 // Book by category
                 VStack(alignment: .leading) {
                     if let matchedGenre = viewModel.findMatchedGenre(for: clickedBook.subjects.first ?? "") {

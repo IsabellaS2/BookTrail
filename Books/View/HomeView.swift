@@ -133,7 +133,7 @@ struct HomeView: View {
                     }
                 }
                 .padding(.bottom, 50.0)
-                
+
                 // Harvard Classics
                 VStack(alignment: .leading) {
                     Text("Harvard Classics")
@@ -175,7 +175,7 @@ struct HomeView: View {
                 }
                 .padding(.bottom, 50.0)
                 Spacer()
- 
+
             }
             .padding()
             .task {

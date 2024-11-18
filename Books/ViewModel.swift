@@ -116,6 +116,63 @@ class ViewModel: ObservableObject {
         }
         return booksByAuthor
     }
+    
+    func getBooksInTimePeriod(birthYear: Int?, deathYear: Int?) -> [String] {
+        var emptyArray: [String] = []
+
+        // Ensure both birthYear and deathYear are non-nil
+        guard let birthYear = birthYear, let deathYear = deathYear else {
+            return emptyArray
+        }
+        let modifiedBY = birthYear - 10
+        let modifiedDY = deathYear + 10
+
+        for book in books {
+            if let author = book.authors.first {
+                if let authorBirthYear = author.birthYear, let authorDeathYear = author.deathYear {
+                    // Check if author's birth and death year fall within the modified ranges
+                    if (authorBirthYear >= modifiedBY && authorBirthYear <= modifiedDY) &&
+                       (authorDeathYear >= modifiedBY && authorDeathYear <= modifiedDY) {
+                        emptyArray.append(book.title)
+                    }
+                }
+            }
+        }
+
+        return emptyArray
+    }
+
+
+    
+    
+    
+//    func getbooboos() -> [String] {
+//        var emptyarray: [String] = []
+//
+//        for book in books {
+//            if book.authors.contains(where: {
+//                 if let birthYear = $0.birthYear {
+//                     return birthYear
+//                 }
+//                if let deathYear = $0.deathYear {
+//                    return deathYear
+//                }
+//                return false
+//             }) {
+//                emptyarray.append(book.title)
+//                 print("Result array: \(emptyarray)")
+//             }
+//        }
+//        return emptyarray
+//    }
+    
+//    func getBooksInThatTimePeriod(bookTitle: String) {
+//        var booksInTimePeriod: [String] = []
+//        for book in books {
+//            if books.authors.birthYear
+//        }
+//        
+//    }
 
     // MARK: - Most Downloaded Book
 
@@ -133,7 +190,7 @@ class ViewModel: ObservableObject {
         let matched = genres.first { genre in
             subject.localizedCaseInsensitiveContains(genre)
         }
-        print("Matched genre for subject '\(subject)': \(matched ?? "None")")
+//        print("Matched genre for subject '\(subject)': \(matched ?? "None")")
         return matched
     }
 
@@ -145,10 +202,11 @@ class ViewModel: ObservableObject {
 
         let books = getBooksByCategory(bookTitle: matchedGenre).prefix(8).map { $0 }
 
-        print("Books found for genre '\(matchedGenre)':")
-        books.forEach { print($0) }
+//        print("Books found for genre '\(matchedGenre)':")
+//        books.forEach { print($0) }
 
         return books
     }
+    
 
 }

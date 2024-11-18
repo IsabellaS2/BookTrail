@@ -19,9 +19,11 @@ struct SearchPageView: View {
     }
 
     var body: some View {
+        let birthYear = clickedBook.authors.first?.birthYear
+        let deathYear = clickedBook.authors.first?.deathYear
         ScrollView {
             VStack {
-
+                
                 // Logo Icon Section
                 HStack {
                     Image(systemName: "book")
@@ -35,8 +37,6 @@ struct SearchPageView: View {
                     Spacer()
                 }
                 .padding(.leading, 18.0)
-
-                Text(viewModel.bookEntered)
 
                 // Book Information
                 HStack {
@@ -53,10 +53,8 @@ struct SearchPageView: View {
                             .font(Font.custom("Cochin", size: 18))
                             .foregroundColor(Color("brownbrown"))
 
-                        let birthYear = clickedBook.authors.first?.birthYear.map { "\($0)" } ?? "Unknown"
-                        let deathYear = clickedBook.authors.first?.deathYear.map { "\($0)" } ?? "Unknown"
 
-                        Text("\(birthYear) - \(deathYear)")
+                        Text("\(birthYear.map { "\($0)" } ?? "Unknown") - \(deathYear.map { "\($0)" } ?? "Unknown")")
                             .font(Font.custom("Cochin", size: 14))
                             .foregroundColor(Color("brownbrown"))
                             .padding(.bottom, 4.0)
@@ -87,7 +85,52 @@ struct SearchPageView: View {
                     .padding([.leading, .bottom], 25.0)
                     Spacer()
                 }
+                
+                //Books in that time period
+                VStack(alignment: .leading) {
+                    Text("Other books from this era")
+                        .font(Font.custom("Cochin", size: 24))
+                        .foregroundColor(Color("darkestBrown"))
+                        .multilineTextAlignment(.leading)
 
+                    ScrollView(.horizontal) {
+                        HStack {
+                            let booksInTimePeriod = viewModel.getBooksInTimePeriod(birthYear: birthYear, deathYear: deathYear)
+                            
+                            if booksInTimePeriod.isEmpty {
+                                Text("Loading...")
+                                    .font(Font.custom("Cochin", size: 20))
+                                    .foregroundColor(Color("darkestBrown"))
+                                    .multilineTextAlignment(.center)
+                            } else {
+                                // Iterate over the array of book titles
+                                ForEach(booksInTimePeriod, id: \.self) { bookTitle in
+                                    VStack {
+                                        Rectangle()
+                                            .frame(width: 96.0, height: 114.0)
+                                            .foregroundColor(Color("caramel"))
+
+                                        Text(bookTitle)  // Display the title directly here
+                                            .font(Font.custom("Cochin", size: 20))
+                                            .foregroundColor(Color("darkestBrown"))
+                                            .multilineTextAlignment(.center)
+                                            .frame(width: 96.0, height: 70.0)
+                                            .lineLimit(nil)
+                                            .padding(.top, 8.0)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    .padding(.trailing, 10.0)
+                                }
+                            }
+                            Spacer()
+                        }
+                    }
+                }
+                .padding(.bottom, 50.0)
+                .padding(.leading, 20)
+
+
+                
                 // Book by category
                 VStack(alignment: .leading) {
                     if let matchedGenre = viewModel.findMatchedGenre(for: clickedBook.subjects.first ?? "") {
@@ -101,7 +144,7 @@ struct SearchPageView: View {
                         ScrollView(.horizontal) {
                             HStack {
                                 if bookTitles.isEmpty {
-                                    Text("No books found")
+                                    Text("Loading...")
                                         .font(Font.custom("Cochin", size: 20))
                                         .foregroundColor(Color("darkestBrown"))
                                         .multilineTextAlignment(.center)

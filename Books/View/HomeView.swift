@@ -30,6 +30,7 @@ struct HomeView: View {
                 Text("Find your favourite books here")
                     .font(Font.custom("Cochin", size: 40))
                     .foregroundColor(Color("darkestBrown"))
+                    .multilineTextAlignment(.center)
 
                 TextField("Search...", text: $viewModel.bookEntered)
                     .padding(10.0)
@@ -43,7 +44,7 @@ struct HomeView: View {
                     Text("Go")
                         .font(Font.custom("Cochin", size: 24))
                         .foregroundColor(Color("darkestBrown"))
-                        .padding(.bottom, 20.0)
+                        .padding(.bottom, 30.0)
                 })
                 .sheet(isPresented: $viewModel.showHomeSheet, content: {
                     VStack(spacing: 8) {
@@ -62,22 +63,29 @@ struct HomeView: View {
 
                     ScrollView(.horizontal) {
                         HStack {
-                            ForEach(viewModel.getBooksOrderedByDownloads().prefix(5)) { book in
-                                VStack {
-                                    Rectangle()
-                                        .frame(width: 96.0, height: 114.0)
-                                        .foregroundColor(Color("caramel"))
+                            if viewModel.getBooksOrderedByDownloads().prefix(5).isEmpty {
+                                Text("Loading...")
+                                    .font(Font.custom("Cochin", size: 20))
+                                    .foregroundColor(Color("darkestBrown"))
+                                    .multilineTextAlignment(.center)
+                            } else {
+                                ForEach(viewModel.getBooksOrderedByDownloads().prefix(5)) { book in
+                                    VStack {
+                                        Rectangle()
+                                            .frame(width: 96.0, height: 114.0)
+                                            .foregroundColor(Color("caramel"))
 
-                                    Text(book.title)
-                                        .font(Font.custom("Cochin", size: 20))
-                                        .foregroundColor(Color("darkestBrown"))
-                                        .multilineTextAlignment(.center)
-                                        .frame(width: 96.0, height: 70.0)
-                                        .lineLimit(nil)
-                                        .padding(.top, 8.0)
-                                        .fixedSize(horizontal: false, vertical: true)
+                                        Text(book.title)
+                                            .font(Font.custom("Cochin", size: 20))
+                                            .foregroundColor(Color("darkestBrown"))
+                                            .multilineTextAlignment(.center)
+                                            .frame(width: 96.0, height: 70.0)
+                                            .lineLimit(nil)
+                                            .padding(.top, 8.0)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    .padding(.trailing, 10.0)
                                 }
-                                .padding(.trailing, 10.0)
                             }
                             Spacer()
                         }
@@ -97,7 +105,48 @@ struct HomeView: View {
                             let bookTitles = viewModel.getBooksByCategory(bookTitle: "Gothic Fiction").prefix(5)
 
                             if bookTitles.isEmpty {
-                                Text("No books found")
+                                Text("Loading...")
+                                    .font(Font.custom("Cochin", size: 20))
+                                    .foregroundColor(Color("darkestBrown"))
+                                    .multilineTextAlignment(.center)
+                            } else {
+                                ForEach(bookTitles, id: \.self) { title in
+                                    VStack {
+                                        Rectangle()
+                                            .frame(width: 96.0, height: 114.0)
+                                            .foregroundColor(Color("caramel"))
+
+                                        Text(title)
+                                            .font(Font.custom("Cochin", size: 20))
+                                            .foregroundColor(Color("darkestBrown"))
+                                            .multilineTextAlignment(.center)
+                                            .frame(width: 96.0, height: 70.0)
+                                            .lineLimit(nil)
+                                            .padding(.top, 8.0)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    .padding(.trailing, 10.0)
+                                }
+                            }
+                            Spacer()
+                        }
+                    }
+                }
+                .padding(.bottom, 50.0)
+                
+                // Harvard Classics
+                VStack(alignment: .leading) {
+                    Text("Harvard Classics")
+                        .font(Font.custom("Cochin", size: 24))
+                        .foregroundColor(Color("darkestBrown"))
+                        .multilineTextAlignment(.leading)
+
+                    ScrollView(.horizontal) {
+                        HStack {
+                            let bookTitles = viewModel.getBooksByCategory(bookTitle: "Harvard Classics").prefix(5)
+
+                            if bookTitles.isEmpty {
+                                Text("Loading...")
                                     .font(Font.custom("Cochin", size: 20))
                                     .foregroundColor(Color("darkestBrown"))
                                     .multilineTextAlignment(.center)
@@ -126,6 +175,7 @@ struct HomeView: View {
                 }
                 .padding(.bottom, 50.0)
                 Spacer()
+ 
             }
             .padding()
             .task {

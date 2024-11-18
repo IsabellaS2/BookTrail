@@ -38,38 +38,3 @@ class BookRepository {
         }
     }
 }
-
-// struct NetworkService {
-//
-//    func fetchRepo(userName: String) async throws -> [Repository] {
-//
-//        guard let url = URL(string: "https://api.github.com/users/\(userName)/repos") else {
-//            throw NetworkError.invalidURL
-//        }
-//        do {
-//            let (data, _) = try await URLSession.shared.data(from: url)
-//            let repositories = try JSONDecoder().decode([Repository].self, from: data)
-//            return repositories
-//        } catch {
-//            throw NetworkError.decodingError
-//        }
-//    }
-// }
-//
-// class GitHubViewModel {
-//
-//    let networkService: NetworkService
-//
-//    init(networkService: NetworkService) {
-//        self.networkService = networkService
-//    }
-//
-//    func presentRepositories() async {
-//        do {
-//            let repositories = try await self.networkService.fetchRepo(userName: "pointfreeco")
-//            print(repositories.map { $0.name })
-//        } catch {
-//            print("Error: \(error)")
-//        }
-//    }
-// }

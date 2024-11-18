@@ -33,7 +33,7 @@ struct SearchResultView: View {
                         .foregroundColor(Color("darkestBrown"))
                     Spacer()
                 }
-                .padding(.leading, 18.0)
+                .padding(.leading, 12.0)
 
                 // Title Result Section
                 VStack(alignment: .leading) {
@@ -46,7 +46,8 @@ struct SearchResultView: View {
                         .foregroundColor(Color("darkestBrown"))
                         .font(Font.custom("Iowan Old Style", size: 20).italic())
                 }
-                .padding(.bottom, 35.0)
+                .padding(.bottom, 30.0)
+                .padding(.leading, 0)
 
                 ForEach(books) { book in
                     Button(action: {

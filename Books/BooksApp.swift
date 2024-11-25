@@ -20,10 +20,10 @@ struct BooksApp: App {
                         switch destination {
                         case let .searchedBookPage(book):
                             SearchedBookView(viewModel: viewModel, clickedBook: book)
-                            
+
                         case let .searchResultPage(books, searchedWord):
                             SearchResultView(viewModel: viewModel, books: books, searchedWord: searchedWord)
-                            
+
                         case .libraryPage:
                             LibraryView(viewModel: viewModel)
                         }

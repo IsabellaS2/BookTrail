@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LibraryView: View {
     @ObservedObject var viewModel: ViewModel
-    
+
     var body: some View {
         ScrollView {
             VStack {
@@ -19,20 +19,20 @@ struct LibraryView: View {
                         .resizable()
                         .frame(width: 24, height: 20)
                         .foregroundColor(Color("brownbrown"))
-                    
+
                     Text("Booktrail")
                         .font(Font.custom("Cochin", size: 25))
                         .foregroundColor(Color("darkestBrown"))
                     Spacer()
                 }
                 .padding(.leading, 12.0)
-                
+
                 // Title Text
                 Text("Library of Books")
                     .font(Font.custom("Cochin", size: 30))
                     .foregroundColor(Color("darkestBrown"))
                     .padding(.vertical, 13.0)
-                
+
                 // Search Bar
                 TextField("Search...", text: $viewModel.libraryBookSearch)
                     .padding(.leading, 12.0)
@@ -41,7 +41,7 @@ struct LibraryView: View {
                     .background(Color("caramel"))
                     .padding(.horizontal)
                     .textInputAutocapitalization(.never)
-                
+
                 // Sort and Filter
                 HStack {
                     HStack {
@@ -63,9 +63,7 @@ struct LibraryView: View {
                     }
                 }
                 .padding(.horizontal, 20.0)
-                
-                
-                
+
                 // Book Section
                 VStack {
                         ForEach(viewModel.filteredLibraryBooks) { book in
@@ -79,7 +77,7 @@ struct LibraryView: View {
                                             .foregroundColor(Color("darkestBrown"))
                                             .font(Font.custom("Iowan Old Style", size: 18))
                                             .multilineTextAlignment(.leading)
-                                        
+
                                         // Tag Container
 //                                        HStack {
 //                                            let uniqueSubjects = Array(Set(book.subjects.map { subject in
@@ -121,5 +119,3 @@ struct LibraryView: View {
 
     }
 }
-
-

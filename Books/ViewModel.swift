@@ -20,6 +20,9 @@ class ViewModel: ObservableObject {
     @Published var emptySearch: String = ""
     @Published var showHomeSheet = false
     @Published var selectedBook: Book?
+    
+    
+    @Published var libraryBookSearch: String = ""
 
     @Published var genres = ["Fiction", "Literature", "Science-Fiction & Fantasy",
                              "Horror Tales", "Drama", "Poetry", "Best Books Ever Listings",
@@ -49,6 +52,18 @@ class ViewModel: ObservableObject {
             message = "Unexpected error: \(error)"
         }
     }
+    
+    //not quite working as expected
+    var filteredLibraryBooks: [Book] {
+        if libraryBookSearch.isEmpty {
+            return books
+        } else {
+            return books.filter {
+                $0.title.localizedCaseInsensitiveContains(libraryBookSearch)
+            }
+        }
+    }
+
 
     /// Handles search functionality when user enters a book title
     func searchButtonFunctionality() {
@@ -67,7 +82,11 @@ class ViewModel: ObservableObject {
 
     func navigateToSelectedBook(with book: Book) {
         selectedBook = book
-        router.navigate(to: .searchedPage(book))
+        router.navigate(to: .searchedBookPage(book))
+    }
+    
+    func navigateToLibrary() {
+        router.navigate(to: .libraryPage)
     }
 
     // MARK: - Sorting Functions

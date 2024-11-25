@@ -10,8 +10,9 @@ import SwiftUI
 final class Router: ObservableObject {
 
     public enum Destination: Codable, Hashable {
-        case searchedPage(Book)
+        case searchedBookPage(Book)
         case searchResultPage([Book], String)
+        case libraryPage
     }
 
     @Published var navPath = NavigationPath()

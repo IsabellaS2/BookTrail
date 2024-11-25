@@ -18,10 +18,14 @@ struct BooksApp: App {
                 HomeView(viewModel: viewModel)
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
-                        case let .searchedPage(book):
-                            SearchPageView(viewModel: viewModel, clickedBook: book)
+                        case let .searchedBookPage(book):
+                            SearchedBookView(viewModel: viewModel, clickedBook: book)
+
                         case let .searchResultPage(books, searchedWord):
                             SearchResultView(viewModel: viewModel, books: books, searchedWord: searchedWord)
+
+                        case .libraryPage:
+                            LibraryView(viewModel: viewModel)
                         }
                     }
             }

@@ -12,9 +12,9 @@ struct BooksApp: App {
     @ObservedObject var router = Router()
 
     var body: some Scene {
+        let viewModel = ViewModel(router: router, networkRepository: BookRepository())
         WindowGroup {
             NavigationStack(path: $router.navPath) {
-                let viewModel = ViewModel(router: router, networkRepository: BookRepository())
                 HomeView(viewModel: viewModel)
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
@@ -24,8 +24,8 @@ struct BooksApp: App {
                         case let .searchResultPage(books, searchedWord):
                             SearchResultView(viewModel: viewModel, books: books, searchedWord: searchedWord)
 
-                        case .libraryPage:
-                            LibraryView(viewModel: viewModel)
+                        case let .libraryPage(books):
+                            LibraryView(viewModel: LibraryViewModel(books: books))
                         }
                     }
             }

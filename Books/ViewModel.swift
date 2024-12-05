@@ -13,7 +13,7 @@ struct HomeViewData {
 }
 
 class ViewModel: ObservableObject {
-    @Published var books: [Book] = []
+    @Published var books: [Book]
     @Published var viewData: HomeViewData?
     @Published var bookEntered: String = ""
     @Published var message: String = ""
@@ -34,13 +34,16 @@ class ViewModel: ObservableObject {
     init(router: Router, networkRepository: BookRepository) {
         self.router = router
         self.networkRepository = networkRepository
+        self.books = []
     }
 
     /// Fetches books from the repository asynchronously
     @MainActor
     func fetchBookRepo() async {
+        guard books.isEmpty else { return }
         do {
             books = try await networkRepository.fetchBookRepo()
+            print(books.count)
         } catch NetworkError.invalidURL {
             message = "Invalid URL"
         } catch NetworkError.invalidResponse {
@@ -84,7 +87,7 @@ class ViewModel: ObservableObject {
     }
 
     func navigateToLibrary() {
-        router.navigate(to: .libraryPage)
+        router.navigate(to: .libraryPage(self.books))
     }
 
     // MARK: - Sorting Functions
@@ -221,4 +224,29 @@ class ViewModel: ObservableObject {
         return books
     }
 
+}
+
+
+
+class LibraryViewModel: ObservableObject {
+    @Published var books: [Book]
+//    var sortedBooks: [Book] = []
+    
+    init(books: [Book]) {
+        self.books = books
+    }
+    
+    func sortTitlesByAscending() {
+        books = books.sorted(by: { bookA, bookB in
+            bookA.title < bookB.title
+        })
+    }
+    
+    func sortTitlesByDescending() {
+        books = books.sorted(by: { bookA, bookB in
+            bookA.title > bookB.title
+        })
+    }
+    
+    
 }

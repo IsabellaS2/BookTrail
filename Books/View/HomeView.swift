@@ -22,6 +22,11 @@ struct HomeView: View {
                     Text("Booktrail")
                         .font(Font.custom("Inknut Antiqua", size: 32))
                         .foregroundColor(Color("darkestBrown"))
+                        .onAppear {
+                            Task {
+                                await viewModel.fetchBookRepo()
+                            }
+                        }
                 }
 
                 Spacer()
@@ -178,9 +183,9 @@ struct HomeView: View {
 
             }
             .padding()
-            .task {
-                await viewModel.fetchBookRepo()
-            }
+//            .task {
+//                await viewModel.fetchBookRepo()
+//            }
         }
         .background(Color("background"))
     }

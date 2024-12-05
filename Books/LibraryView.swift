@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LibraryView: View {
-    @ObservedObject var viewModel: ViewModel
+    @ObservedObject var viewModel: LibraryViewModel
 
     var body: some View {
         ScrollView {
@@ -33,18 +33,20 @@ struct LibraryView: View {
                     .foregroundColor(Color("darkestBrown"))
                     .padding(.vertical, 13.0)
 
-                // Search Bar
-                TextField("Search...", text: $viewModel.libraryBookSearch)
-                    .padding(.leading, 12.0)
-                    .font(Font.custom("Cochin", size: 18))
-                    .frame(height: 40.0)
-                    .background(Color("caramel"))
-                    .padding(.horizontal)
-                    .textInputAutocapitalization(.never)
+//                // Search Bar
+//                TextField("Search...", text: $viewModel.libraryBookSearch)
+//                    .padding(.leading, 12.0)
+//                    .font(Font.custom("Cochin", size: 18))
+//                    .frame(height: 40.0)
+//                    .background(Color("caramel"))
+//                    .padding(.horizontal)
+//                    .textInputAutocapitalization(.never)
 
                 // Sort and Filter
                 HStack {
-                    HStack {
+                    Button {
+                        viewModel.sortTitlesByAscending()
+                    } label: {
                         Image(systemName: "arrow.up.arrow.down")
                             .frame(width: 23, height: 20)
                             .foregroundColor(Color("brownbrown"))
@@ -52,70 +54,57 @@ struct LibraryView: View {
                             .font(Font.custom("Cochin", size: 20))
                             .foregroundColor(Color("darkestBrown"))
                     }
+
                     Spacer()
-                    HStack {
-                        Image(systemName: "scissors")
-                            .frame(width: 23, height: 20)
-                            .foregroundColor(Color("brownbrown"))
-                        Text("Filter")
-                            .font(Font.custom("Cochin", size: 20))
-                            .foregroundColor(Color("darkestBrown"))
+                    
+                    Button {
+                        viewModel.sortTitlesByDescending()
+                    } label: {
+                        HStack {
+                            Image(systemName: "scissors")
+                                .frame(width: 23, height: 20)
+                                .foregroundColor(Color("brownbrown"))
+                            Text("Filter")
+                                .font(Font.custom("Cochin", size: 20))
+                                .foregroundColor(Color("darkestBrown"))
+                        }
                     }
+                    
+
                 }
                 .padding(.horizontal, 20.0)
 
                 // Book Section
                 VStack {
-                        ForEach(viewModel.filteredLibraryBooks) { book in
-                            Button(action: {
-                                print("\(book.title) tapped")
-                            }, label: {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        // Book title
-                                        Text("\(book.title) by \(book.authors.map { $0.name }.joined(separator: ", "))")
-                                            .foregroundColor(Color("darkestBrown"))
-                                            .font(Font.custom("Iowan Old Style", size: 18))
-                                            .multilineTextAlignment(.leading)
-
-                                        // Tag Container
-//                                        HStack {
-//                                            let uniqueSubjects = Array(Set(book.subjects.map { subject in
-//                                                subject.components(separatedBy: " -- ").first ?? subject
-//                                            })).prefix(1)
-//                                            
-//                                            ForEach(uniqueSubjects, id: \.self) { subject in
-//                                                HStack(alignment: .center, spacing: 0) {
-//                                                    Text(subject)
-//                                                        .font(Font.custom("Iowan Old Style", size: 14))
-//                                                        .foregroundColor(Color("background"))
-//                                                }
-//                                                .padding(.vertical, 4.0)
-//                                                .padding(.horizontal, 6.0)
-//                                                .background(Color("caramel"))
-//                                                .cornerRadius(9)
-//                                            }
-//                                            
-//                                            Spacer()
-//                                        }
-                                    }
-                                    Spacer()
-                                    Image(systemName: "arrow.right")
-                                        .resizable()
-                                        .frame(width: 30, height: 25)
-                                        .foregroundColor(Color("brownbrown"))
+                    ForEach(viewModel.books) { book in
+                        Button(action: {
+//                            viewModel.navigateToSelectedBook(with: book)
+                        }, label: {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    // Book title
+                                    Text("\(book.title) by \(book.authors.map { $0.name }.joined(separator: ", "))")
+                                        .foregroundColor(Color("darkestBrown"))
+                                        .font(Font.custom("Iowan Old Style", size: 18))
+                                        .multilineTextAlignment(.leading)
                                 }
-                                .padding()
-                                .background(Color("sandBrown"))
-                                .cornerRadius(8)
-                            })
-                        }
+                                Spacer()
+                                Image(systemName: "arrow.right")
+                                    .resizable()
+                                    .frame(width: 30, height: 25)
+                                    .foregroundColor(Color("brownbrown"))
+                            }
+                            .padding()
+                            .background(Color("sandBrown"))
+                            .cornerRadius(8)
+                        })
                     }
                 }
-                .padding(.leading, 20.0)
-                .padding(.trailing, 20.0)
             }
-        .background(Color("background"))
+            .padding(.leading, 20.0)
+            .padding(.trailing, 20.0)
+        }
+    .background(Color("background"))
 
     }
 }

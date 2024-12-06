@@ -183,9 +183,9 @@ struct HomeView: View {
 
             }
             .padding()
-//            .task {
-//                await viewModel.fetchBookRepo()
-//            }
+            //            .task {
+            //                await viewModel.fetchBookRepo()
+            //            }
         }
         .background(Color("background"))
     }

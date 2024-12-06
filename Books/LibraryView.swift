@@ -33,30 +33,30 @@ struct LibraryView: View {
                     .foregroundColor(Color("darkestBrown"))
                     .padding(.vertical, 13.0)
 
-//                // Search Bar
-//                TextField("Search...", text: $viewModel.libraryBookSearch)
-//                    .padding(.leading, 12.0)
-//                    .font(Font.custom("Cochin", size: 18))
-//                    .frame(height: 40.0)
-//                    .background(Color("caramel"))
-//                    .padding(.horizontal)
-//                    .textInputAutocapitalization(.never)
+                // Search Bar
+                TextField("Search...", text: $viewModel.libraryBookSearch)
+                    .padding(.leading, 12.0)
+                    .font(Font.custom("Cochin", size: 18))
+                    .frame(height: 40.0)
+                    .background(Color("caramel"))
+                    .padding(.horizontal)
+                    .textInputAutocapitalization(.never)
 
                 // Sort and Filter
                 HStack {
-                    Button {
-                        viewModel.sortTitlesByAscending()
+                    Menu {
+                        Button("Ascending Book Titles", action: viewModel.sortTitlesByAscending)
+                        Button("Descending Book Titles", action: viewModel.sortTitlesByDescending)
+                        Button("Most Download", action: viewModel.sortByMostDownloaded)
+                        Button("Alphabetical Authors Name", action: viewModel.sortAuthorsNameByAscending)
+
                     } label: {
-                        Image(systemName: "arrow.up.arrow.down")
-                            .frame(width: 23, height: 20)
+                        Label("Sorting", systemImage: "arrow.up.arrow.down")
                             .foregroundColor(Color("brownbrown"))
-                        Text("Sort")
-                            .font(Font.custom("Cochin", size: 20))
-                            .foregroundColor(Color("darkestBrown"))
                     }
 
                     Spacer()
-                    
+
                     Button {
                         viewModel.sortTitlesByDescending()
                     } label: {
@@ -69,8 +69,6 @@ struct LibraryView: View {
                                 .foregroundColor(Color("darkestBrown"))
                         }
                     }
-                    
-
                 }
                 .padding(.horizontal, 20.0)
 
@@ -78,7 +76,7 @@ struct LibraryView: View {
                 VStack {
                     ForEach(viewModel.books) { book in
                         Button(action: {
-//                            viewModel.navigateToSelectedBook(with: book)
+                            //                            viewModel.navigateToSelectedBook(with: book)
                         }, label: {
                             HStack {
                                 VStack(alignment: .leading) {
@@ -104,7 +102,7 @@ struct LibraryView: View {
             .padding(.leading, 20.0)
             .padding(.trailing, 20.0)
         }
-    .background(Color("background"))
+        .background(Color("background"))
 
     }
 }

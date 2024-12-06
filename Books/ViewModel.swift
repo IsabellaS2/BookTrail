@@ -162,34 +162,6 @@ class ViewModel: ObservableObject {
         return emptyArray
     }
 
-    //    func getbooboos() -> [String] {
-    //        var emptyarray: [String] = []
-    //
-    //        for book in books {
-    //            if book.authors.contains(where: {
-    //                 if let birthYear = $0.birthYear {
-    //                     return birthYear
-    //                 }
-    //                if let deathYear = $0.deathYear {
-    //                    return deathYear
-    //                }
-    //                return false
-    //             }) {
-    //                emptyarray.append(book.title)
-    //                 print("Result array: \(emptyarray)")
-    //             }
-    //        }
-    //        return emptyarray
-    //    }
-
-    //    func getBooksInThatTimePeriod(bookTitle: String) {
-    //        var booksInTimePeriod: [String] = []
-    //        for book in books {
-    //            if books.authors.birthYear
-    //        }
-    //
-    //    }
-
     // MARK: - Most Downloaded Book
 
     /// Updates the view data with the most downloaded book and its download count (Not currently used in the UI)
@@ -218,35 +190,56 @@ class ViewModel: ObservableObject {
 
         let books = getBooksByCategory(bookTitle: matchedGenre).prefix(8).map { $0 }
 
-        //        print("Books found for genre '\(matchedGenre)':")
-        //        books.forEach { print($0) }
-
         return books
     }
 
 }
 
-
-
 class LibraryViewModel: ObservableObject {
     @Published var books: [Book]
-//    var sortedBooks: [Book] = []
-    
+    @Published var libraryBookSearch: String = ""
+
+    //    var sortedBooks: [Book] = []
+
     init(books: [Book]) {
         self.books = books
     }
-    
+
+    // Sorting
+    // titles
     func sortTitlesByAscending() {
         books = books.sorted(by: { bookA, bookB in
             bookA.title < bookB.title
         })
     }
-    
+
     func sortTitlesByDescending() {
         books = books.sorted(by: { bookA, bookB in
             bookA.title > bookB.title
         })
     }
-    
-    
+
+    // authors
+    func sortAuthorsByAscending() {
+        books = books.sorted { ($0.authors.first?.birthYear ?? Int.max) < ($1.authors.first?.birthYear ?? Int.max) }
+    }
+
+    func sortAuthorsNameByAscending() {
+        books = books.sorted { bookA, bookB in
+            bookA.authors.first!.name < bookB.authors.first!.name
+        }
+    }
+
+    func sortByMostDownloaded() {
+        books = books.sorted { $0.downloadCount > $1.downloadCount }
+    }
+
+    // Filtering
+    func getBooksByCategory(category: String) {
+        books = books.filter { book in
+            book.subjects.contains(where: { $0.localizedCaseInsensitiveContains(category) }) ||
+                book.bookshelves.contains(where: { $0.localizedCaseInsensitiveContains(category) })
+        }
+    }
+
 }

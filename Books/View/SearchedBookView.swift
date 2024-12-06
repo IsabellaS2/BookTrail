@@ -110,7 +110,7 @@ struct SearchedBookView: View {
                                             .frame(width: 96.0, height: 114.0)
                                             .foregroundColor(Color("caramel"))
 
-                                        Text(bookTitle)  // Display the title directly here
+                                        Text(bookTitle)
                                             .font(Font.custom("Cochin", size: 20))
                                             .foregroundColor(Color("darkestBrown"))
                                             .multilineTextAlignment(.center)

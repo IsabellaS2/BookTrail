@@ -22,6 +22,8 @@ final class LibraryViewModelTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    /// Sorting Tests
+
     func test_sortAscending_byBookTitles() throws {
         // GIVEN
         sut = LibraryViewModel(books: [
@@ -88,6 +90,48 @@ final class LibraryViewModelTests: XCTestCase {
         // THEN
         XCTAssertEqual(sut.books.first!.downloadCount, 500)
         XCTAssertEqual(sut.books.last!.downloadCount, 100)
+    }
+
+    /// Filtering Tests
+
+    func test_filterBookTitles_byFictionCategory() throws {
+        // GIVEN
+        sut = LibraryViewModel(books: [
+            .init(id: 1, title: "z", authors: [], bookshelves: [], subjects: ["Fiction", "Horror"],
+                  downloadCount: 4, languages: []),
+            .init(id: 2, title: "a", authors: [], bookshelves: [], subjects: ["Harvard Classics"],
+                  downloadCount: 5, languages: []),
+            .init(id: 3, title: "c", authors: [], bookshelves: [], subjects: ["Fiction", "Romance"],
+                  downloadCount: 6, languages: [])
+        ])
+
+        // WHEN
+        sut.getBooksByCategory(category: "Fiction")
+
+        // THEN
+        XCTAssertEqual(sut.books.first?.subjects.first, "Fiction")
+    }
+
+    func test_filterBookTitles_byAuthorName() throws {
+        // GIVEN
+        sut = LibraryViewModel(books: [
+            .init(id: 1, title: "z", authors: [
+                .init(name: "Charles Dickens", birthYear: 1812, deathYear: 1870)
+            ], bookshelves: [], subjects: [], downloadCount: 7, languages: []),
+            .init(id: 2, title: "a", authors: [
+                .init(name: "Jane Austen", birthYear: 1775, deathYear: 1817)
+            ], bookshelves: [], subjects: [], downloadCount: 8, languages: []),
+            .init(id: 3, title: "c", authors: [
+                .init(name: "Mark Twain", birthYear: 1835, deathYear: 1910)
+            ], bookshelves: [], subjects: [], downloadCount: 9, languages: [])
+        ])
+
+        // WHEN
+        sut.getBooksByAuthor(authorName: "Charles Dickens")
+
+        // THEN
+        XCTAssertEqual(sut.books.count, 1)
+        XCTAssertEqual(sut.books.first?.authors.first?.name, "Charles Dickens")
     }
 
     func testPerformanceExample() throws {

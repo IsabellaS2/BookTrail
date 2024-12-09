@@ -57,26 +57,58 @@ struct LibraryView: View {
 
                     Spacer()
 
-                    Button {
-                        viewModel.sortTitlesByDescending()
-                    } label: {
-                        HStack {
-                            Image(systemName: "scissors")
-                                .frame(width: 23, height: 20)
-                                .foregroundColor(Color("brownbrown"))
-                            Text("Filter")
-                                .font(Font.custom("Cochin", size: 20))
-                                .foregroundColor(Color("darkestBrown"))
+                    Menu {
+                        Menu("Authors") {
+                            Button("Charles Dickens") { viewModel.getBooksByAuthor(authorName: "Dickens, Charles") }
+                            Button("William Shakespeare") {
+                                viewModel.getBooksByAuthor(authorName: "Shakespeare, William")
+                            }
+                            Button("Oscar Wilde") { viewModel.getBooksByAuthor(authorName: "Wilde, Oscar") }
+                            Button("Tobias Smollett") {
+                                viewModel.getBooksByAuthor(authorName: "Smollett, T. (Tobias)")
+                            }
+
                         }
+                        Menu("Subjects") {
+                            Button("Harvard Classics") { viewModel.getBooksByCategory(category: "Harvard Classics") }
+                            Button("Literature") { viewModel.getBooksByCategory(category: "Literature") }
+                            Button("History") { viewModel.getBooksByCategory(category: "History") }
+                            Button("Humour") { viewModel.getBooksByCategory(category: "Humour") }
+                            Button("Psychology") { viewModel.getBooksByCategory(category: "Psychology") }
+                            Button("Drama") { viewModel.getBooksByCategory(category: "Drama") }
+                            Button("Movie Books") { viewModel.getBooksByCategory(category: "Movie Books") }
+                            Button("Horror") { viewModel.getBooksByCategory(category: "Horror") }
+                            Button("Science-Fiction & Fantasy") {
+                                viewModel.getBooksByCategory(category: "Science-Fiction & Fantasy")
+                            }
+                            Button("Children's Literature") {
+                                viewModel.getBooksByCategory(category: "Children's Literature")
+                            }
+                            Button("Culture/Civilization/Society") {
+                                viewModel.getBooksByCategory(category: "Culture/Civilization/Society")
+                            }
+
+                        }
+
+                    } label: {
+                        Label("Filtering", systemImage: "scissors")
+                            .foregroundColor(Color("brownbrown"))
                     }
                 }
                 .padding(.horizontal, 20.0)
+
+                Button {
+                    viewModel.clearBooks()
+                } label: {
+                    Text("Clear Selection")
+                        .foregroundColor(Color("darkestBrown"))
+                }
 
                 // Book Section
                 VStack {
                     ForEach(viewModel.books) { book in
                         Button(action: {
-                            //                            viewModel.navigateToSelectedBook(with: book)
+                            // viewModel.navigateToSelectedBook(with: book)
                         }, label: {
                             HStack {
                                 VStack(alignment: .leading) {

@@ -197,12 +197,15 @@ class ViewModel: ObservableObject {
 
 class LibraryViewModel: ObservableObject {
     @Published var books: [Book]
+    @Published var originalBooks: [Book]
+
     @Published var libraryBookSearch: String = ""
 
     //    var sortedBooks: [Book] = []
 
     init(books: [Book]) {
         self.books = books
+        self.originalBooks = books
     }
 
     // Sorting
@@ -242,4 +245,13 @@ class LibraryViewModel: ObservableObject {
         }
     }
 
+    func getBooksByAuthor(authorName: String) {
+        books = originalBooks.filter { book in
+            book.authors.contains { $0.name.localizedCaseInsensitiveContains(authorName) }
+        }
+    }
+
+    func clearBooks() {
+        books = originalBooks // Reset the books array to the original state
+    }
 }

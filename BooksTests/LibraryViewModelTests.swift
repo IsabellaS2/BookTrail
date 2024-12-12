@@ -58,11 +58,11 @@ final class LibraryViewModelTests: XCTestCase {
         let result = sut.books.map {
             $0.authors.first?.name
         }
-        XCTAssertEqual(result, ["Charles Dickens","Jane Austen", "Mark Twain"])
+        XCTAssertEqual(result, ["Charles Dickens", "Jane Austen", "Mark Twain"])
 
         // THEN
-//        XCTAssertEqual(sut.books.first?.authors.first?.name, "Charles Dickens")
-//        XCTAssertEqual(sut.books.last?.authors.first?.name, "Mark Twain")
+        //        XCTAssertEqual(sut.books.first?.authors.first?.name, "Charles Dickens")
+        //        XCTAssertEqual(sut.books.last?.authors.first?.name, "Mark Twain")
     }
 
     func test_sortDownloads_byMostDownloaded() throws {
@@ -71,12 +71,12 @@ final class LibraryViewModelTests: XCTestCase {
         let result = sut.books.map {
             $0.downloadCount
         }
-        
+
         // THEN
-        XCTAssertEqual(result, [500,300,100])
-        
-//        XCTAssertEqual(sut.books.first!.downloadCount, 500)
-//        XCTAssertEqual(sut.books.last!.downloadCount, 100)
+        XCTAssertEqual(result, [500, 300, 100])
+
+        //        XCTAssertEqual(sut.books.first!.downloadCount, 500)
+        //        XCTAssertEqual(sut.books.last!.downloadCount, 100)
     }
 
     /// Filtering Tests
@@ -87,17 +87,17 @@ final class LibraryViewModelTests: XCTestCase {
         sut.getBooksByCategory(category: category)
 
         // THEN
-//        for book in sut.books {
-//            if !book.subjects.contains(category) {
-//                XCTFail("There are books which contain other subjects")
-//            }
-//        }
-        let result = sut.books.allSatisfy{ book in
+        //        for book in sut.books {
+        //            if !book.subjects.contains(category) {
+        //                XCTFail("There are books which contain other subjects")
+        //            }
+        //        }
+        let result = sut.books.allSatisfy { book in
             book.subjects.contains(category)
         }
         XCTAssertEqual(sut.books.count, 2)
         XCTAssertTrue(result)
-        
+
     }
 
     func test_filterBookTitles_byAuthorName() throws {

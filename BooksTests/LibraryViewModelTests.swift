@@ -13,25 +13,30 @@ final class LibraryViewModelTests: XCTestCase {
     var sut: LibraryViewModel!
 
     override func setUpWithError() throws {
-        sut = LibraryViewModel(books: [])
+        try super.setUpWithError()
+        sut = LibraryViewModel(books: [
+            .init(id: 1, title: "z", authors: [
+                .init(name: "Charles Dickens", birthYear: 1812, deathYear: 1870)
+            ], bookshelves: [], subjects: ["Fiction", "Horror"], downloadCount: 500, languages: []),
+            .init(id: 2, title: "a", authors: [
+                .init(name: "Jane Austen", birthYear: 1775, deathYear: 1817)
+            ], bookshelves: [], subjects: ["Harvard Classics"], downloadCount: 300, languages: []),
+            .init(id: 3, title: "c", authors: [
+                .init(name: "Mark Twain", birthYear: 1835, deathYear: 1910)
+            ], bookshelves: [], subjects: ["Fiction", "Romance"], downloadCount: 100, languages: [])
+        ])
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
         sut = nil
+        try super.tearDownWithError()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     /// Sorting Tests
 
     func test_sortAscending_byBookTitles() throws {
-        // GIVEN
-        sut = LibraryViewModel(books: [
-            .init(id: 1, title: "z", authors: [], bookshelves: [], subjects: [], downloadCount: 1, languages: []),
-            .init(id: 2, title: "a", authors: [], bookshelves: [], subjects: [], downloadCount: 2, languages: []),
-            .init(id: 3, title: "c", authors: [], bookshelves: [], subjects: [], downloadCount: 3, languages: [])
-        ])
-
         // WHEN
         sut.sortTitlesByAscending()
 
@@ -40,13 +45,6 @@ final class LibraryViewModelTests: XCTestCase {
     }
 
     func test_sortDescending_byBookTitles() throws {
-        // GIVEN
-        sut = LibraryViewModel(books: [
-            .init(id: 1, title: "z", authors: [], bookshelves: [], subjects: [], downloadCount: 4, languages: []),
-            .init(id: 2, title: "a", authors: [], bookshelves: [], subjects: [], downloadCount: 5, languages: []),
-            .init(id: 3, title: "c", authors: [], bookshelves: [], subjects: [], downloadCount: 6, languages: [])
-        ])
-
         // WHEN
         sut.sortTitlesByDescending()
 
@@ -55,77 +53,54 @@ final class LibraryViewModelTests: XCTestCase {
     }
 
     func test_sortAscending_byAuthorsName() throws {
-        // GIVEN
-        sut = LibraryViewModel(books: [
-            .init(id: 1, title: "z", authors: [
-                .init(name: "Charles Dickens", birthYear: 1812, deathYear: 1870)
-            ], bookshelves: [], subjects: [], downloadCount: 7, languages: []),
-            .init(id: 2, title: "a", authors: [
-                .init(name: "Jane Austen", birthYear: 1775, deathYear: 1817)
-            ], bookshelves: [], subjects: [], downloadCount: 8, languages: []),
-            .init(id: 3, title: "c", authors: [
-                .init(name: "Mark Twain", birthYear: 1835, deathYear: 1910)
-            ], bookshelves: [], subjects: [], downloadCount: 9, languages: [])
-        ])
-
         // WHEN
         sut.sortAuthorsNameByAscending()
+        let result = sut.books.map {
+            $0.authors.first?.name
+        }
+        XCTAssertEqual(result, ["Charles Dickens","Jane Austen", "Mark Twain"])
 
         // THEN
-        XCTAssertEqual(sut.books.first?.authors.first?.name, "Charles Dickens")
-        XCTAssertEqual(sut.books.last?.authors.first?.name, "Mark Twain")
+//        XCTAssertEqual(sut.books.first?.authors.first?.name, "Charles Dickens")
+//        XCTAssertEqual(sut.books.last?.authors.first?.name, "Mark Twain")
     }
 
     func test_sortDownloads_byMostDownloaded() throws {
-        // GIVEN
-        sut = LibraryViewModel(books: [
-            .init(id: 1, title: "A", authors: [], bookshelves: [], subjects: [], downloadCount: 100, languages: []),
-            .init(id: 2, title: "B", authors: [], bookshelves: [], subjects: [], downloadCount: 300, languages: []),
-            .init(id: 3, title: "C", authors: [], bookshelves: [], subjects: [], downloadCount: 500, languages: [])
-        ])
-
         // WHEN
         sut.sortByMostDownloaded()
-
+        let result = sut.books.map {
+            $0.downloadCount
+        }
+        
         // THEN
-        XCTAssertEqual(sut.books.first!.downloadCount, 500)
-        XCTAssertEqual(sut.books.last!.downloadCount, 100)
+        XCTAssertEqual(result, [500,300,100])
+        
+//        XCTAssertEqual(sut.books.first!.downloadCount, 500)
+//        XCTAssertEqual(sut.books.last!.downloadCount, 100)
     }
 
     /// Filtering Tests
 
     func test_filterBookTitles_byFictionCategory() throws {
-        // GIVEN
-        sut = LibraryViewModel(books: [
-            .init(id: 1, title: "z", authors: [], bookshelves: [], subjects: ["Fiction", "Horror"],
-                  downloadCount: 4, languages: []),
-            .init(id: 2, title: "a", authors: [], bookshelves: [], subjects: ["Harvard Classics"],
-                  downloadCount: 5, languages: []),
-            .init(id: 3, title: "c", authors: [], bookshelves: [], subjects: ["Fiction", "Romance"],
-                  downloadCount: 6, languages: [])
-        ])
-
+        let category = "Fiction"
         // WHEN
-        sut.getBooksByCategory(category: "Fiction")
+        sut.getBooksByCategory(category: category)
 
         // THEN
-        XCTAssertEqual(sut.books.first?.subjects.first, "Fiction")
+//        for book in sut.books {
+//            if !book.subjects.contains(category) {
+//                XCTFail("There are books which contain other subjects")
+//            }
+//        }
+        let result = sut.books.allSatisfy{ book in
+            book.subjects.contains(category)
+        }
+        XCTAssertEqual(sut.books.count, 2)
+        XCTAssertTrue(result)
+        
     }
 
     func test_filterBookTitles_byAuthorName() throws {
-        // GIVEN
-        sut = LibraryViewModel(books: [
-            .init(id: 1, title: "z", authors: [
-                .init(name: "Charles Dickens", birthYear: 1812, deathYear: 1870)
-            ], bookshelves: [], subjects: [], downloadCount: 7, languages: []),
-            .init(id: 2, title: "a", authors: [
-                .init(name: "Jane Austen", birthYear: 1775, deathYear: 1817)
-            ], bookshelves: [], subjects: [], downloadCount: 8, languages: []),
-            .init(id: 3, title: "c", authors: [
-                .init(name: "Mark Twain", birthYear: 1835, deathYear: 1910)
-            ], bookshelves: [], subjects: [], downloadCount: 9, languages: [])
-        ])
-
         // WHEN
         sut.getBooksByAuthor(authorName: "Charles Dickens")
 
@@ -140,5 +115,4 @@ final class LibraryViewModelTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

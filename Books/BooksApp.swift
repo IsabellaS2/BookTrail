@@ -15,7 +15,7 @@ struct BooksApp: App {
         let viewModel = ViewModel(router: router, networkRepository: BookRepository())
         WindowGroup {
             NavigationStack(path: $router.navPath) {
-                HomeView(viewModel: viewModel)
+                TabView(viewModel: viewModel)
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
                         case let .searchedBookPage(book):

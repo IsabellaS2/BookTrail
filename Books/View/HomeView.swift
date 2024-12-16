@@ -44,7 +44,7 @@ struct HomeView: View {
                     .background(Color("caramel"))
 
                 Button(action: {
-                    viewModel.navigateToLibrary()
+                    viewModel.searchButtonFunctionality()
                 }, label: {
                     Text("Go")
                         .font(Font.custom("Cochin", size: 24))

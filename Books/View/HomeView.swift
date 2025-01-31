@@ -105,9 +105,15 @@ struct HomeView: View {
                 }
                 .padding(.bottom, 50.0)
 
-                BookCategoryView(categoryTitle: "Gothic Fiction", books: viewModel.getBooksByCategory(bookTitle: "Gothic Fiction"))
+                BookCategoryView(
+                    categoryTitle: "Gothic Fiction",
+                    books: viewModel.getBooksByCategory(bookTitle: "Gothic Fiction")
+                )
 
-                BookCategoryView(categoryTitle: "Harvard Classics", books: viewModel.getBooksByCategory(bookTitle: "Harvard Classics"))
+                BookCategoryView(
+                    categoryTitle: "Harvard Classics",
+                    books: viewModel.getBooksByCategory(bookTitle: "Harvard Classics")
+                )
 
                 Spacer()
 

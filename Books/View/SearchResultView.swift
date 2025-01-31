@@ -21,19 +21,7 @@ struct SearchResultView: View {
 
             VStack(spacing: 8) {
 
-                // Top Logo
-                HStack {
-                    Image(systemName: "book")
-                        .resizable()
-                        .frame(width: 24, height: 20)
-                        .foregroundColor(Color("brownbrown"))
-
-                    Text("Booktrail")
-                        .font(Font.custom("Inknut Antiqua", size: 15))
-                        .foregroundColor(Color("darkestBrown"))
-                    Spacer()
-                }
-                .padding(.leading, 12.0)
+                LogoSection()
 
                 // Title Result Section
                 VStack(alignment: .leading) {

@@ -24,19 +24,7 @@ struct SearchedBookView: View {
         ScrollView {
             VStack {
 
-                // Logo Icon Section
-                HStack {
-                    Image(systemName: "book")
-                        .resizable()
-                        .frame(width: 24, height: 20)
-                        .foregroundColor(Color("brownbrown"))
-
-                    Text("Booktrail")
-                        .font(Font.custom("Inknut Antiqua", size: 15))
-                        .foregroundColor(Color("darkestBrown"))
-                    Spacer()
-                }
-                .padding(.leading, 18.0)
+                LogoSection()
 
                 // Book Information
                 HStack {
@@ -212,6 +200,11 @@ struct SearchedBookView: View {
                     .padding(.leading, 20)
                     .padding(.bottom, 30)
                 }
+
+                LibraryButton(
+                    action: { viewModel.navigateToLibrary() },
+                    title: "Library View"
+                )
 
             }
         }

@@ -52,10 +52,17 @@ struct HomeView: View {
                         .padding(.bottom, 30.0)
                 })
                 .sheet(isPresented: $viewModel.showHomeSheet, content: {
-                    VStack(spacing: 8) {
+                    VStack(spacing: 10) {
                         Text("The title you have entered is not available, please try again!")
+                        Text("Why not check out the \(viewModel.books.count) library books we have available?")
+
+                        LibraryButton(
+                            action: { viewModel.navigateToLibrary() },
+                            title: "Go to Library"
+                        )
+
                     }
-                    .presentationDetents([.fraction(0.25)])
+                    .presentationDetents([.fraction(0.30)])
                     .presentationDragIndicator(.visible)
                 })
 
@@ -98,94 +105,21 @@ struct HomeView: View {
                 }
                 .padding(.bottom, 50.0)
 
-                // Gothic Fiction
-                VStack(alignment: .leading) {
-                    Text("Gothic Fiction")
-                        .font(Font.custom("Cochin", size: 24))
-                        .foregroundColor(Color("darkestBrown"))
-                        .multilineTextAlignment(.leading)
+                BookCategoryView(categoryTitle: "Gothic Fiction", books: viewModel.getBooksByCategory(bookTitle: "Gothic Fiction"))
 
-                    ScrollView(.horizontal) {
-                        HStack {
-                            let bookTitles = viewModel.getBooksByCategory(bookTitle: "Gothic Fiction").prefix(5)
+                BookCategoryView(categoryTitle: "Harvard Classics", books: viewModel.getBooksByCategory(bookTitle: "Harvard Classics"))
 
-                            if bookTitles.isEmpty {
-                                Text("Loading...")
-                                    .font(Font.custom("Cochin", size: 20))
-                                    .foregroundColor(Color("darkestBrown"))
-                                    .multilineTextAlignment(.center)
-                            } else {
-                                ForEach(bookTitles, id: \.self) { title in
-                                    VStack {
-                                        Rectangle()
-                                            .frame(width: 96.0, height: 114.0)
-                                            .foregroundColor(Color("caramel"))
+                Spacer()
 
-                                        Text(title)
-                                            .font(Font.custom("Cochin", size: 20))
-                                            .foregroundColor(Color("darkestBrown"))
-                                            .multilineTextAlignment(.center)
-                                            .frame(width: 96.0, height: 70.0)
-                                            .lineLimit(nil)
-                                            .padding(.top, 8.0)
-                                            .fixedSize(horizontal: false, vertical: true)
-                                    }
-                                    .padding(.trailing, 10.0)
-                                }
-                            }
-                            Spacer()
-                        }
-                    }
-                }
-                .padding(.bottom, 50.0)
+                LibraryButton(
+                    action: { viewModel.navigateToLibrary() },
+                    title: "Library View"
+                )
 
-                // Harvard Classics
-                VStack(alignment: .leading) {
-                    Text("Harvard Classics")
-                        .font(Font.custom("Cochin", size: 24))
-                        .foregroundColor(Color("darkestBrown"))
-                        .multilineTextAlignment(.leading)
-
-                    ScrollView(.horizontal) {
-                        HStack {
-                            let bookTitles = viewModel.getBooksByCategory(bookTitle: "Harvard Classics").prefix(5)
-
-                            if bookTitles.isEmpty {
-                                Text("Loading...")
-                                    .font(Font.custom("Cochin", size: 20))
-                                    .foregroundColor(Color("darkestBrown"))
-                                    .multilineTextAlignment(.center)
-                            } else {
-                                ForEach(bookTitles, id: \.self) { title in
-                                    VStack {
-                                        Rectangle()
-                                            .frame(width: 96.0, height: 114.0)
-                                            .foregroundColor(Color("caramel"))
-
-                                        Text(title)
-                                            .font(Font.custom("Cochin", size: 20))
-                                            .foregroundColor(Color("darkestBrown"))
-                                            .multilineTextAlignment(.center)
-                                            .frame(width: 96.0, height: 70.0)
-                                            .lineLimit(nil)
-                                            .padding(.top, 8.0)
-                                            .fixedSize(horizontal: false, vertical: true)
-                                    }
-                                    .padding(.trailing, 10.0)
-                                }
-                            }
-                            Spacer()
-                        }
-                    }
-                }
-                .padding(.bottom, 50.0)
                 Spacer()
 
             }
             .padding()
-            //            .task {
-            //                await viewModel.fetchBookRepo()
-            //            }
         }
         .background(Color("background"))
     }

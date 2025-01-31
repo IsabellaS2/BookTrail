@@ -13,19 +13,7 @@ struct LibraryView: View {
     var body: some View {
         ScrollView {
             VStack {
-                // Top Logo
-                HStack {
-                    Image(systemName: "book")
-                        .resizable()
-                        .frame(width: 24, height: 20)
-                        .foregroundColor(Color("brownbrown"))
-
-                    Text("Booktrail")
-                        .font(Font.custom("Cochin", size: 25))
-                        .foregroundColor(Color("darkestBrown"))
-                    Spacer()
-                }
-                .padding(.leading, 12.0)
+                LogoSection()
 
                 // Title Text
                 Text("Library of Books")

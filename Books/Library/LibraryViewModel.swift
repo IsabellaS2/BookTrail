@@ -18,8 +18,7 @@ class LibraryViewModel: ObservableObject {
         self.originalBooks = books
     }
 
-    // Sorting
-    // Titles
+    // Sorting titles
     func sortTitlesByAscending() {
         books = books.sorted(by: { bookA, bookB in
             bookA.title < bookB.title
@@ -32,7 +31,7 @@ class LibraryViewModel: ObservableObject {
         })
     }
 
-    // Authors
+    // Sorting Authors
     func sortAuthorsByAscending() {
         books = books.sorted { ($0.authors.first?.birthYear ?? Int.max) < ($1.authors.first?.birthYear ?? Int.max) }
     }

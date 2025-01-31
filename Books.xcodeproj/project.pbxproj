@@ -17,11 +17,11 @@
 		EE1D41C22CEB90A60093042D /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D41C12CEB90A60093042D /* LibraryView.swift */; };
 		EE1D41C42CEB91590093042D /* SearchedBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D41C32CEB91590093042D /* SearchedBookView.swift */; };
 		EE2AA70F2CBFC170002CF1EC /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2AA70E2CBFC170002CF1EC /* SearchResultView.swift */; };
-		EE69EBA22D0C771000D1F5A7 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE69EBA12D0C771000D1F5A7 /* TabView.swift */; };
 		EE69EBA42D0C814000D1F5A7 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE69EBA32D0C814000D1F5A7 /* LibraryViewModel.swift */; };
 		EE8FD1932C74B0E1003FD4D6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */; };
 		EEC9DE0F2C8B275700A289B3 /* BookRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9DE0E2C8B275700A289B3 /* BookRepository.swift */; };
 		EED813732C9D953700FBB655 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED813722C9D953700FBB655 /* Router.swift */; };
+		EEDB66FB2D4D0E0E0084B7B8 /* TemplateViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB66FA2D4D0E0E0084B7B8 /* TemplateViews.swift */; };
 		EEE099882C89DEF9001B6209 /* InknutAntiqua-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEE099872C89DEF9001B6209 /* InknutAntiqua-Light.ttf */; };
 /* End PBXBuildFile section */
 
@@ -48,11 +48,11 @@
 		EE1D41C12CEB90A60093042D /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		EE1D41C32CEB91590093042D /* SearchedBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedBookView.swift; sourceTree = "<group>"; };
 		EE2AA70E2CBFC170002CF1EC /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
-		EE69EBA12D0C771000D1F5A7 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		EE69EBA32D0C814000D1F5A7 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
 		EE8FD1922C74B0E1003FD4D6 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		EEC9DE0E2C8B275700A289B3 /* BookRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepository.swift; sourceTree = "<group>"; };
 		EED813722C9D953700FBB655 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		EEDB66FA2D4D0E0E0084B7B8 /* TemplateViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViews.swift; sourceTree = "<group>"; };
 		EEE099862C89DED8001B6209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EEE099872C89DEF9001B6209 /* InknutAntiqua-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "InknutAntiqua-Light.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,7 +143,7 @@
 				EE1D41C32CEB91590093042D /* SearchedBookView.swift */,
 				EE0345C42C6F9A61008B446B /* HomeView.swift */,
 				EE2AA70E2CBFC170002CF1EC /* SearchResultView.swift */,
-				EE69EBA12D0C771000D1F5A7 /* TabView.swift */,
+				EEDB66FA2D4D0E0E0084B7B8 /* TemplateViews.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -249,7 +249,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE69EBA22D0C771000D1F5A7 /* TabView.swift in Sources */,
 				EE0345C52C6F9A61008B446B /* HomeView.swift in Sources */,
 				EE2AA70F2CBFC170002CF1EC /* SearchResultView.swift in Sources */,
 				EE8FD1932C74B0E1003FD4D6 /* ViewModel.swift in Sources */,
@@ -260,6 +259,7 @@
 				EED813732C9D953700FBB655 /* Router.swift in Sources */,
 				EE69EBA42D0C814000D1F5A7 /* LibraryViewModel.swift in Sources */,
 				EE0A27BE2C7790A7005D547D /* BookModel.swift in Sources */,
+				EEDB66FB2D4D0E0E0084B7B8 /* TemplateViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
